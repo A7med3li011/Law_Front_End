@@ -1,6 +1,8 @@
 import { FormHelperText, TextField } from "@mui/material";
 
 export default function Input({
+  helperDeco,
+  inputDeco,
   inputStyle,
   divDeco,
   value,
@@ -11,10 +13,12 @@ export default function Input({
   deco,
   helper,
   isError,
+  type,
 }) {
   return (
     <div className={divDeco}>
       <TextField
+        type={type}
         name={name}
         className={deco}
         label={label}
@@ -22,6 +26,11 @@ export default function Input({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        InputProps={{
+          classes: {
+            input: inputDeco, // Tailwind classes like "py-4 px-6 rounded-xl"
+          },
+        }}
         sx={{
           "& .MuiOutlinedInput-root": {
             borderRadius: inputStyle ? inputStyle : "", // rounded-xl
@@ -34,7 +43,11 @@ export default function Input({
         }}
       />
       {isError && (
-        <FormHelperText className="!pe-1 !text-right  !text-red-500">
+        <FormHelperText
+          className={`${
+            helperDeco ? helperDeco : "!pe-1 !text-right  !text-red-500"
+          }`}
+        >
           {helper}
         </FormHelperText>
       )}

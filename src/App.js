@@ -10,15 +10,63 @@ import ResetPassword from "./pages/Auth/ResetPassword";
 import Setting from "./pages/Setting";
 import ProtectedRoutes from "./services/ProtectedRoutes";
 import Support from "./pages/Support";
+import ReverseProtectedRoutes from "./services/ReverseProtectedRoutes";
 
 function App() {
   const router = createBrowserRouter([
-    { path: "/register", element: <Register /> },
-    { path: "/otp", element: <Otp /> },
-    { path: "/login", element: <Login /> },
-    { path: "/forgetPassword", element: <FrogetPassword /> },
-    { path: "/forgetOtp", element: <ForgetOtp /> },
-    { path: "/resetPassword", element: <ResetPassword /> },
+    {
+      path: "/register",
+      element: (
+        <ReverseProtectedRoutes>
+          <Register />
+        </ReverseProtectedRoutes>
+      ),
+    },
+    {
+      path: "/otp",
+      element: (
+        <ReverseProtectedRoutes>
+          {" "}
+          <Otp />{" "}
+        </ReverseProtectedRoutes>
+      ),
+    },
+    {
+      path: "/login",
+      element: (
+        <ReverseProtectedRoutes>
+          {" "}
+          <Login />
+        </ReverseProtectedRoutes>
+      ),
+    },
+    {
+      path: "/forgetPassword",
+      element: (
+        <ReverseProtectedRoutes>
+          {" "}
+          <FrogetPassword />{" "}
+        </ReverseProtectedRoutes>
+      ),
+    },
+    {
+      path: "/forgetOtp",
+      element: (
+        <ReverseProtectedRoutes>
+          {" "}
+          <ForgetOtp />{" "}
+        </ReverseProtectedRoutes>
+      ),
+    },
+    {
+      path: "/resetPassword",
+      element: (
+        <ReverseProtectedRoutes>
+          {" "}
+          <ResetPassword />{" "}
+        </ReverseProtectedRoutes>
+      ),
+    },
     {
       path: "",
       element: (

@@ -1,19 +1,11 @@
 import {
-  Autocomplete,
   Button,
   FormControl,
-  FormControlLabel,
   FormHelperText,
-  FormLabel,
   IconButton,
   InputAdornment,
   InputLabel,
-  MenuItem,
   OutlinedInput,
-  Radio,
-  RadioGroup,
-  Select,
-  TextField,
 } from "@mui/material";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,6 +18,9 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import axios from "axios";
 import { baseUrl } from "../../utilities/Apis";
+import Input from "../../ui/Input";
+import { registerSchema } from "../../utilities/schema";
+import AutoComplete from "../../ui/AutoComplete";
 
 const municipalities = [
   //الاول
@@ -334,32 +329,6 @@ const municipalities = [
 export default function Register() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const registerSchema = yup.object({
-    email: yup
-      .string()
-      .matches(
-        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-        "Invalid email format"
-      )
-      .required(),
-
-    name: yup.string().min(3, "too short").max(30, "too long").required(),
-    password: yup.string().min(8, "too weak").max(50, "too long").required(),
-    phone: yup
-      .string()
-      .matches(
-        /^(?:\+9665[0-9]{8}|9665[0-9]{8}|05[0-9]{8}|5[0-9]{8})$|^(?:\+201[0-2,5][0-9]{8}|201[0-2,5][0-9]{8}|01[0-2,5][0-9]{8})$/,
-        "Invalid phone number"
-      )
-      .required(),
-    age: yup.number().min(18).max(75).required(),
-    gender: yup
-      .string()
-      .oneOf(["male", "female"], "Gender must be either 'male' or 'female'")
-      .required("Gender is required"),
-    role: yup.string().oneOf(["user", "admin"]).required("Gender is required"),
-    location: yup.string().required(),
-  });
 
   async function handleRegister(data) {
     await axios
@@ -369,7 +338,13 @@ export default function Register() {
         navigate("/otp");
         localStorage.setItem("email", res.data.data.email);
       })
-      .catch((err) => toast.error(err.response.data.message));
+      .catch((err) => {
+        if (err?.response?.data?.message) {
+          toast.error(err.response.data.message);
+        } else {
+          toast.error(err.response.data.message);
+        }
+      });
   }
 
   const registerFormik = useFormik({
@@ -377,15 +352,17 @@ export default function Register() {
       email: "",
       name: "",
       password: "",
+      confirmPassword: "",
+      companyName: "",
       phone: "",
-      age: "",
-      gender: "female",
       role: "user",
       location: "",
+      unifiedNumber: "",
     },
 
     onSubmit: (e) => {
       handleRegister(e);
+      // console.log(e);
     },
     validationSchema: registerSchema,
   });
@@ -400,41 +377,35 @@ export default function Register() {
           onSubmit={registerFormik.handleSubmit}
           className="sm:w-2/3 w-full px-3 py-4 flex gap-y-2 flex-col"
         >
-          {/* Name Field */}
+          <Input
+            divDeco={"my-"}
+            helperDeco={"text-left !text-red-500 !ps-1"}
+            inputDeco="!py-4"
+            name="name"
+            deco="w-full"
+            label="Name"
+            value={registerFormik.values.name}
+            onChange={registerFormik.handleChange}
+            onBlur={registerFormik.handleBlur}
+            isError={registerFormik.touched.name && registerFormik.errors.name}
+            helper={registerFormik.touched.name && registerFormik.errors.name}
+          />
+          <Input
+            divDeco={"my-"}
+            helperDeco={"text-left !text-red-500 !ps-1"}
+            inputDeco="!py-4"
+            name="email"
+            deco="w-full"
+            label="Email"
+            value={registerFormik.values.email}
+            onChange={registerFormik.handleChange}
+            onBlur={registerFormik.handleBlur}
+            isError={
+              registerFormik.touched.email && registerFormik.errors.email
+            }
+            helper={registerFormik.touched.email && registerFormik.errors.email}
+          />
 
-          <div>
-            <TextField
-              name="name"
-              className="w-full"
-              label="Name"
-              variant="outlined"
-              value={registerFormik.values.name}
-              onChange={registerFormik.handleChange}
-              onBlur={registerFormik.handleBlur}
-            />
-            <FormHelperText className="!ps-1 !text-red-500">
-              {registerFormik.touched.name && registerFormik.errors.name}
-            </FormHelperText>
-          </div>
-
-          {/* Email Field */}
-          <div>
-            <TextField
-              name="email"
-              className="w-full"
-              label="Email"
-              type="email"
-              variant="outlined"
-              value={registerFormik.values.email}
-              onChange={registerFormik.handleChange}
-              onBlur={registerFormik.handleBlur}
-            />
-            <FormHelperText className="!ps-1 !text-red-500">
-              {registerFormik.touched.email && registerFormik.errors.email}
-            </FormHelperText>
-          </div>
-
-          {/* Password Field */}
           <FormControl variant="outlined" fullWidth>
             <InputLabel>Password</InputLabel>
             <OutlinedInput
@@ -460,90 +431,110 @@ export default function Register() {
                 registerFormik.errors.password}
             </FormHelperText>
           </FormControl>
-
-          {/* Phone Field */}
-          <div>
-            <TextField
-              name="phone"
-              className="w-full"
-              label="Phone"
-              type="tel"
-              variant="outlined"
-              value={registerFormik.values.phone}
+          <FormControl variant="outlined" fullWidth>
+            <InputLabel>Confirm Password</InputLabel>
+            <OutlinedInput
+              name="confirmPassword"
+              type={showPassword ? "text" : "password"}
+              value={registerFormik.values.confirmPassword}
               onChange={registerFormik.handleChange}
               onBlur={registerFormik.handleBlur}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
             />
-            <FormHelperText className="!ps-1 !text-red-500">
-              {registerFormik.touched.phone && registerFormik.errors.phone}
-            </FormHelperText>
-          </div>
-          {/* Location & Age Fields */}
-          <div className="flex sm:flex-row flex-col justify-between">
-            {/* Location Field */}
-            <FormControl className="w-full !my-2 sm:w-[48%]">
-              <Autocomplete
-                options={municipalities} // List of municipalities
-                getOptionLabel={(option) => option} // Display option as string
-                value={registerFormik.values.location} // Formik value
-                onChange={(event, newValue) =>
-                  registerFormik.setFieldValue("location", newValue)
-                }
-                onBlur={registerFormik.handleBlur}
-                renderInput={(params) => (
-                  <TextField {...params} label="Location" variant="outlined" />
-                )}
-              />
-              <FormHelperText className="!ps-1 !text-red-500">
-                {registerFormik.touched.location &&
-                  registerFormik.errors.location}
-              </FormHelperText>
-            </FormControl>
-            {/* Age Field */}
-            <FormControl className="w-full !my-2 sm:w-[48%]">
-              <InputLabel>Age</InputLabel>
-              <Select
-                name="age"
-                value={registerFormik.values.age}
-                onChange={registerFormik.handleChange}
-                onBlur={registerFormik.handleBlur}
-                label="Age"
-              >
-                {Array(70)
-                  .fill(20)
-                  .map((ele, index) => (
-                    <MenuItem key={index} value={index + 17}>
-                      {index + 17}
-                    </MenuItem>
-                  ))}
-              </Select>
-              <FormHelperText className="!ms-[6px] !text-red-500">
-                {registerFormik.touched.age && registerFormik.errors.age}
-              </FormHelperText>
-            </FormControl>
-          </div>
-
-          {/* Gender Radio Buttons */}
-          <FormControl>
-            <FormLabel>Gender</FormLabel>
-            <RadioGroup
-              name="gender"
-              value={registerFormik.values.gender}
-              onChange={registerFormik.handleChange}
-              row
-            >
-              <FormControlLabel
-                value="female"
-                control={<Radio />}
-                label="Female"
-              />
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
-            </RadioGroup>
             <FormHelperText className="!ms-[6px] !text-red-500">
-              {registerFormik.touched.gender && registerFormik.errors.gender}
+              {registerFormik.touched.confirmPassword &&
+                registerFormik.errors.confirmPassword}
             </FormHelperText>
           </FormControl>
 
-          {/* Submit Button */}
+          <Input
+            divDeco={"my-"}
+            helperDeco={"text-left !text-red-500 !ps-1"}
+            inputDeco="!py-4"
+            name="companyName"
+            deco="w-full"
+            label="Company Name"
+            value={registerFormik.values.companyName}
+            onChange={registerFormik.handleChange}
+            onBlur={registerFormik.handleBlur}
+            isError={
+              registerFormik.touched.companyName &&
+              registerFormik.errors.companyName
+            }
+            helper={
+              registerFormik.touched.companyName &&
+              registerFormik.errors.companyName
+            }
+          />
+          <Input
+            divDeco={"my-"}
+            helperDeco={"text-left !text-red-500 !ps-1"}
+            inputDeco="!py-4"
+            name="unifiedNumber"
+            deco="w-full"
+            type={"number"}
+            label="Add the unified number (number 700)"
+            value={registerFormik.values.unifiedNumber}
+            onChange={registerFormik.handleChange}
+            onBlur={registerFormik.handleBlur}
+            isError={
+              registerFormik.touched.unifiedNumber &&
+              registerFormik.errors.unifiedNumber
+            }
+            helper={
+              registerFormik.touched.unifiedNumber &&
+              registerFormik.errors.unifiedNumber
+            }
+          />
+
+          <Input
+            divDeco={"my-"}
+            helperDeco={"text-left !text-red-500 !ps-1"}
+            inputDeco="!py-4"
+            name="phone"
+            deco="w-full"
+            label="Phone"
+            type="text"
+            variant="outlined"
+            value={registerFormik.values.phone}
+            onChange={registerFormik.handleChange}
+            onBlur={registerFormik.handleBlur}
+            isError={
+              registerFormik.touched.phone && registerFormik.errors.phone
+            }
+            helper={registerFormik.touched.phone && registerFormik.errors.phone}
+          />
+
+          {/* Location & Age Fields */}
+
+          <AutoComplete
+            options={municipalities}
+            getOptionLabel={(option) => option}
+            value={registerFormik.values.location} // Formik value
+            onchange={(event, newValue) =>
+              registerFormik.setFieldValue("location", newValue)
+            }
+            onBlur={registerFormik.handleBlur}
+            label={"location"}
+            isError={
+              registerFormik.touched.location && registerFormik.errors.location
+            }
+            helper={
+              registerFormik.touched.location && registerFormik.errors.location
+            }
+            parentDeco={"w-full"}
+          />
+
           <Button
             type="submit"
             className="!bg-primary !text-white w-2/3 !py-2 !mt-5 !mx-auto sm:!text-md"

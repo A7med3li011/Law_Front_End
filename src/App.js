@@ -11,15 +11,22 @@ import Setting from "./pages/Setting";
 import ProtectedRoutes from "./services/ProtectedRoutes";
 import Support from "./pages/Support";
 import ReverseProtectedRoutes from "./services/ReverseProtectedRoutes";
+import TeamWork from "./pages/TeamWork";
+import AddClient from "./pages/AddClient";
+
+
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/register",
       element: (
+        
+        
         <ReverseProtectedRoutes>
           <Register />
         </ReverseProtectedRoutes>
+       
       ),
     },
     {
@@ -70,14 +77,16 @@ function App() {
     {
       path: "",
       element: (
-        <ProtectedRoutes>
+      
           <Layout />
-        </ProtectedRoutes>
+    
       ),
       children: [
         { path: "/", element: <Home /> },
         { path: "/setting", element: <Setting /> },
         { path: "/support", element: <Support /> },
+        { path: "/Teamwork", element: <TeamWork /> },
+        { path: "/Addclient", element: <AddClient /> },
       ],
     },
   ]);

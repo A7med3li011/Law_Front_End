@@ -11,7 +11,7 @@ import Setting from "./pages/Setting";
 import ProtectedRoutes from "./services/ProtectedRoutes";
 import Support from "./pages/Support";
 import ReverseProtectedRoutes from "./services/ReverseProtectedRoutes";
-
+import Question from "./ui/Question";
 function App() {
   const router = createBrowserRouter([
     {
@@ -22,6 +22,14 @@ function App() {
         </ReverseProtectedRoutes>
       ),
     },
+      {
+    path: "/questions", 
+    element: (
+      <ReverseProtectedRoutes>
+        <Question />
+      </ReverseProtectedRoutes>
+    ),
+  },
     {
       path: "/otp",
       element: (
@@ -70,9 +78,10 @@ function App() {
     {
       path: "",
       element: (
-        <ProtectedRoutes>
-          <Layout />
-        </ProtectedRoutes>
+        // <ProtectedRoutes>
+           <Layout />
+        //  </ProtectedRoutes>
+        
       ),
       children: [
         { path: "/", element: <Home /> },

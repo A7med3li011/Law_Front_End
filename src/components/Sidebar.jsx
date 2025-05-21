@@ -13,7 +13,7 @@ const links = [
   {
     name: "المشروعات",
     icon: <FontAwesomeIcon icon="fa-solid fa-chart-simple" />,
-    to: "",
+    to: "/FilterSearchPage",
   },
   {
     name: "الملفات",

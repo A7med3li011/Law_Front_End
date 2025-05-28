@@ -16,11 +16,14 @@ export default function AutoComplete({
   onchange,
   label,
   deco,
+  placeholder,
+  size = "medium",
 }) {
   return (
     <FormControl className={`!my-2 ${parentDeco ? parentDeco : ""} `}>
       <Autocomplete
         className={deco}
+        size={size}
         options={options} // List of municipalities
         // getOptionLabel={(option) => option}  Display option as string
         getOptionLabel={getOptionLabel}
@@ -32,6 +35,7 @@ export default function AutoComplete({
         onBlur={onBlur}
         renderInput={(params) => (
           <TextField
+            placeholder={placeholder ? placeholder : null}
             className=" "
             {...params}
             label={label}

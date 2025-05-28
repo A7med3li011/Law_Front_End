@@ -3,7 +3,7 @@ import Login from "./pages/Auth/Login";
 import Otp from "./pages/Auth/Otp";
 import Register from "./pages/Auth/Register";
 import Layout from "./components/Layout";
-import Home from "./pages/Auth/Home";
+import Home from "./pages/Home/Home";
 import FrogetPassword from "./pages/Auth/ForgetPassword";
 import ForgetOtp from "./pages/Auth/ForgetOtp";
 import ResetPassword from "./pages/Auth/ResetPassword";
@@ -11,6 +11,11 @@ import Setting from "./pages/Setting";
 import ProtectedRoutes from "./services/ProtectedRoutes";
 import Support from "./pages/Support";
 import ReverseProtectedRoutes from "./services/ReverseProtectedRoutes";
+import Question from "./pages/Question";
+
+import FilterSearchPage from "./pages/ProjectPage/FilterSearchPage";
+import Questionnaire from "./pages/Questionnaire/Questionnaire";
+import NewQuestionnaire from "./pages/Questionnaire/NewQuestionnaire";
 
 function App() {
   const router = createBrowserRouter([
@@ -19,6 +24,14 @@ function App() {
       element: (
         <ReverseProtectedRoutes>
           <Register />
+        </ReverseProtectedRoutes>
+      ),
+    },
+    {
+      path: "/questions",
+      element: (
+        <ReverseProtectedRoutes>
+          <Question />
         </ReverseProtectedRoutes>
       ),
     },
@@ -76,8 +89,11 @@ function App() {
       ),
       children: [
         { path: "/", element: <Home /> },
+        { path: "/questionnaire", element: <Questionnaire /> },
+        { path: "/newQuestionnaire", element: <NewQuestionnaire /> },
         { path: "/setting", element: <Setting /> },
         { path: "/support", element: <Support /> },
+        { path: "/FilterSearchPage", element: <FilterSearchPage /> },
       ],
     },
   ]);

@@ -11,6 +11,12 @@ const links = [
     to: "",
   },
   {
+    name: "الإستبيانات",
+    icon: <FontAwesomeIcon icon="fa-solid fa-circle-question" />,
+    to: "/questionnaire",
+  },
+
+  {
     name: "المشروعات",
     icon: <FontAwesomeIcon icon="fa-solid fa-chart-simple" />,
     to: "/FilterSearchPage",

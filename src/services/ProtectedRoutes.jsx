@@ -12,7 +12,7 @@ export default function ProtectedRoutes({ children }) {
   async function getUserData() {
     if (!isLoggedIn) return;
     const data = await axios.get(
-      `${baseUrl}/${localStorage.getItem("userID")}`
+      `${baseUrl}/user/${localStorage.getItem("userID")}`
     );
 
     return data;
@@ -23,8 +23,8 @@ export default function ProtectedRoutes({ children }) {
     queryFn: getUserData,
     enabled: isLoggedIn,
     refetchOnWindowFocus: false, // ✅ Don't refetch on tab focus
-    refetchOnMount: false,       // ✅ Don't refetch on remount
-    staleTime: 1000 * 60 * 5,    // ✅ Consider data fresh for 5 mins
+    refetchOnMount: false, // ✅ Don't refetch on remount
+    staleTime: 1000 * 60 * 5, // ✅ Consider data fresh for 5 mins
     onSuccess: (res) => {
       dispatch(updateUser(res.data));
     },

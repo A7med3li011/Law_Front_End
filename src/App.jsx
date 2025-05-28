@@ -14,6 +14,8 @@ import ReverseProtectedRoutes from "./services/ReverseProtectedRoutes";
 import Question from "./pages/Question";
 
 import FilterSearchPage from "./pages/ProjectPage/FilterSearchPage";
+import Questionnaire from "./pages/Questionnaire/Questionnaire";
+import NewQuestionnaire from "./pages/Questionnaire/NewQuestionnaire";
 
 function App() {
   const router = createBrowserRouter([
@@ -25,14 +27,14 @@ function App() {
         </ReverseProtectedRoutes>
       ),
     },
-      {
-    path: "/questions", 
-    element: (
-      <ReverseProtectedRoutes>
-        <Question />
-      </ReverseProtectedRoutes>
-    ),
-  },
+    {
+      path: "/questions",
+      element: (
+        <ReverseProtectedRoutes>
+          <Question />
+        </ReverseProtectedRoutes>
+      ),
+    },
     {
       path: "/otp",
       element: (
@@ -81,17 +83,17 @@ function App() {
     {
       path: "",
       element: (
-        // <ProtectedRoutes>
-           <Layout />
-        //  </ProtectedRoutes>
-        
+        <ProtectedRoutes>
+          <Layout />
+        </ProtectedRoutes>
       ),
       children: [
         { path: "/", element: <Home /> },
+        { path: "/questionnaire", element: <Questionnaire /> },
+        { path: "/newQuestionnaire", element: <NewQuestionnaire /> },
         { path: "/setting", element: <Setting /> },
         { path: "/support", element: <Support /> },
         { path: "/FilterSearchPage", element: <FilterSearchPage /> },
-     
       ],
     },
   ]);

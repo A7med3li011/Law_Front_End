@@ -332,7 +332,7 @@ export default function Register() {
 
   async function handleRegister(data) {
     await axios
-      .post(`${baseUrl}/register`, data)
+      .post(`${baseUrl}/user/register`, data)
       .then((res) => {
         toast.success(res.data.message);
         navigate("/otp");

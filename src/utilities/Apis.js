@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export const baseUrl = "http://localhost:3001/api/v1/law/user";
+export const baseUrl = "http://localhost:3001/api/v1/law";
 
 export async function updateUserbyId(reqData, token) {
   const formData = new FormData();
@@ -38,6 +38,34 @@ export async function createSupport(reqData, token) {
   formData.append("senderEmail", reqData.senderEmail);
   const res = await axios
     .post(`${baseUrl}/support`, formData, {
+      headers: { token },
+    })
+    .catch((err) => toast.error(err.response.data.message));
+  return res.data;
+}
+export async function getCategories(token) {
+  const res = await axios
+    .get(`${baseUrl}/category`, {
+      headers: { token },
+    })
+    .catch((err) => toast.error(err.response.data.message));
+  return res.data;
+}
+export async function getVaiolations(token, categories) {
+  const res = await axios
+    .post(
+      `${baseUrl}/vaiolation/vaiolationList`,
+      { categories: categories },
+      {
+        headers: { token },
+      }
+    )
+    .catch((err) => toast.error(err.response.data.message));
+  return res.data;
+}
+export async function sendAnswers(token, payload) {
+  const res = await axios
+    .post(`${baseUrl}/response/sendAnswers`, payload, {
       headers: { token },
     })
     .catch((err) => toast.error(err.response.data.message));

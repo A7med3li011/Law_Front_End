@@ -1,94 +1,107 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Grid } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import SearchFilter from './SearchFilter';
 import FilterTabs from './FilterTabs';
 import ProjectCard from './ProjectCard';
 import img from '../../utilities/assets/img.jpg';
 
 export default function FilterSearchPage() {
+  const navigate = useNavigate();
   const [selectedFilter, setSelectedFilter] = useState('الكل');
   const [projects, setProjects] = useState([]);
   const filters = ['الكل', 'جاري العمل', 'جاهز', 'متأخر', 'معلق'];
 
-  // Mock data (to be replaced with API data)
+  // fake data
   const mockData = [
     {
       id: 1,
       image: img,
-      name: 'مشروع 1',
+      name: 'مشروع تطوير النظام',
+      status: 'جاري العمل',
       members: [
         { id: 1, avatar: 'https://i.pravatar.cc/150?img=1' },
         { id: 2, avatar: 'https://i.pravatar.cc/150?img=2' },
       ],
       date: '2025-05-20',
+      progress: 65
     },
     {
       id: 2,
       image: img,
-      name: 'مشروع 2',
+      name: 'مشروع التصميم الجديد',
+      status: 'جاهز',
       members: [
         { id: 3, avatar: 'https://i.pravatar.cc/150?img=3' },
         { id: 4, avatar: 'https://i.pravatar.cc/150?img=4' },
-        { id: 5, avatar: 'https://i.pravatar.cc/150?img=5' },
       ],
       date: '2025-05-19',
+      progress: 100
     },
     {
       id: 3,
       image: img,
-      name: 'مشروع 3',
+      name: 'مشروع التسويق',
+      status: 'متأخر',
       members: [
-        { id: 6, avatar: 'https://i.pravatar.cc/150?img=6' },
+        { id: 5, avatar: 'https://i.pravatar.cc/150?img=5' },
       ],
       date: '2025-05-18',
+      progress: 30
     },
     {
       id: 4,
       image: img,
-      name: 'مشروع 4',
+      name: 'مشروع التدريب',
+      status: 'معلق',
       members: [
-        { id: 7, avatar: 'https://i.pravatar.cc/150?img=7' },
+        { id: 6, avatar: 'https://i.pravatar.cc/150?img=6' },
       ],
-      date: '2025-05-18',
+      date: '2025-05-17',
+      progress: 0
     },
     {
       id: 5,
       image: img,
-      name: 'مشروع 5',
+      name: 'مشروع التطوير',
+      status: 'جاري العمل',
       members: [
-        { id: 8, avatar: 'https://i.pravatar.cc/150?img=8' },
+        { id: 7, avatar: 'https://i.pravatar.cc/150?img=7' },
       ],
-      date: '2025-05-18',
+      date: '2025-05-16',
+      progress: 45
     },
     {
       id: 6,
       image: img,
-      name: 'مشروع 6',
+      name: 'مشروع الاختبار',
+      status: 'جاهز',
       members: [
-        { id: 9, avatar: 'https://i.pravatar.cc/150?img=9' },
+        { id: 8, avatar: 'https://i.pravatar.cc/150?img=8' },
       ],
-      date: '2025-05-18',
-    },
+      date: '2025-05-15',
+      progress: 100
+    }
   ];
 
-  // Fetch data from an endpoint (replace with your endpoint)
+  // fetch data
   useEffect(() => {
-    // Simulate API call with mock data
     setProjects(mockData);
-
-    // Uncomment and replace with your endpoint
-    /*
-    fetch('YOUR_ENDPOINT_URL')
-      .then((response) => response.json())
-      .then((data) => setProjects(data))
-      .catch((error) => console.error('Error fetching data:', error));
-    */
   }, []);
 
+  // select filter
+  const filteredProjects = selectedFilter === 'الكل' 
+    ? projects 
+    : projects.filter(project => project.status === selectedFilter);
+
+  // عند النقر على فلتر
   const handleFilterClick = (filter) => {
     setSelectedFilter(filter);
-    // Optionally filter projects based on selectedFilter
-    // Example: setProjects(mockData.filter(project => project.status === filter));
+  };
+
+  // عند النقر على مشروع
+  const handleProjectClick = (projectId) => {
+    navigate(`/project/${projectId}`);
   };
 
   return (
@@ -101,11 +114,27 @@ export default function FilterSearchPage() {
       fontFamily: 'Tajawal, sans-serif'
     }}>
       <SearchFilter />
-      <FilterTabs filters={filters} selectedFilter={selectedFilter} onFilterClick={handleFilterClick} />
+      <FilterTabs 
+        filters={filters} 
+        selectedFilter={selectedFilter} 
+        onFilterClick={handleFilterClick} 
+      />
+      
       <Grid container spacing={{ xs: 2, sm: 3 }}>
-        {projects.map((project) => (
+        {filteredProjects.map((project) => (
           <Grid item xs={12} sm={6} md={4} key={project.id}>
-            <ProjectCard project={project} />
+            <Box 
+              onClick={() => handleProjectClick(project.id)}
+              sx={{ 
+                cursor: 'pointer',
+                '&:hover': {
+                  transform: 'scale(1.02)',
+                  transition: 'transform 0.3s ease'
+                }
+              }}
+            >
+              <ProjectCard project={project} />
+            </Box>
           </Grid>
         ))}
       </Grid>

@@ -12,9 +12,9 @@ import ProtectedRoutes from "./services/ProtectedRoutes";
 import Support from "./pages/Support";
 import ReverseProtectedRoutes from "./services/ReverseProtectedRoutes";
 import Question from "./pages/Question";
-
+import ProjectDetails from "./pages/ProjectPage/ProjectDetails";
 import FilterSearchPage from "./pages/ProjectPage/FilterSearchPage";
-
+import ProjectTasks from "./pages/ProjectPage/ProjectTasks";
 function App() {
   const router = createBrowserRouter([
     {
@@ -91,6 +91,8 @@ function App() {
         { path: "/setting", element: <Setting /> },
         { path: "/support", element: <Support /> },
         { path: "/FilterSearchPage", element: <FilterSearchPage /> },
+        { path: "/project/:id", element: <ProjectDetails /> },
+        {path:"/projects/:id/tasks", element: <ProjectTasks />} ,
      
       ],
     },

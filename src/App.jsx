@@ -16,6 +16,7 @@ import Question from "./pages/Question";
 import FilterSearchPage from "./pages/ProjectPage/FilterSearchPage";
 import Questionnaire from "./pages/Questionnaire/Questionnaire";
 import NewQuestionnaire from "./pages/Questionnaire/NewQuestionnaire";
+import Results from "./pages/Questionnaire/Results";
 
 function App() {
   const router = createBrowserRouter([
@@ -83,14 +84,15 @@ function App() {
     {
       path: "",
       element: (
-        <ProtectedRoutes>
+        // <ProtectedRoutes>
           <Layout />
-        </ProtectedRoutes>
+        // </ProtectedRoutes>
       ),
       children: [
         { path: "/", element: <Home /> },
         { path: "/questionnaire", element: <Questionnaire /> },
         { path: "/newQuestionnaire", element: <NewQuestionnaire /> },
+        { path: "/questionnaire/:surveyId/results", element: <Results /> },
         { path: "/setting", element: <Setting /> },
         { path: "/support", element: <Support /> },
         { path: "/FilterSearchPage", element: <FilterSearchPage /> },

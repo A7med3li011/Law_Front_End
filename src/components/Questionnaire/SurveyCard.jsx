@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 function formatDateOnly(isoString) {
   const date = new Date(isoString);
@@ -26,7 +27,7 @@ export default function SurveyCard({ survey }) {
             loading="lazy"
           />
         ) : (
-          <FontAwesomeIcon icon={faPoll} className="text-5xl text-gray-400" />
+          <FontAwesomeIcon icon={"fa-solid fa-house" } className="text-5xl text-gray-400" />
         )}
       </div>
 

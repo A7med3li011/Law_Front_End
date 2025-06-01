@@ -17,6 +17,7 @@ import FilterSearchPage from "./pages/ProjectPage/FilterSearchPage";
 import Questionnaire from "./pages/Questionnaire/Questionnaire";
 import NewQuestionnaire from "./pages/Questionnaire/NewQuestionnaire";
 import Results from "./pages/Questionnaire/Results";
+import Branchdetails from "./pages/ProjectPage/Branchdetails.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -95,7 +96,14 @@ function App() {
         { path: "/survey/:id", element: <Results /> },
         { path: "/setting", element: <Setting /> },
         { path: "/support", element: <Support /> },
-        { path: "/FilterSearchPage", element: <FilterSearchPage /> },
+        {
+          path: "/FilterSearchPage",
+          element: <FilterSearchPage />,
+        },
+        {
+          path: "/FilterSearchPage/project/:id",
+          element: <Branchdetails />,
+        },
       ],
     },
   ]);

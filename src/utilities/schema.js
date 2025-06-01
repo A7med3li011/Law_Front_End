@@ -55,7 +55,10 @@ export const registerSchema = yup.object({
     )
     .required(),
   unifiedNumber: yup.number().required("unified number is required"),
-  role: yup.string().oneOf(["user", "admin"]).required("Gender is required"),
+  role: yup
+    .string()
+    .oneOf(["user", "admin", "company"])
+    .required("Gender is required"),
   location: yup.string().required(),
   companyName: yup.string().required("company name is required"),
 });

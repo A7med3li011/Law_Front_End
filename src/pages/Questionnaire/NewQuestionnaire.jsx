@@ -19,7 +19,7 @@ export default function NewQuestionnaire() {
     mutationKey: ["sendAnswers"],
     mutationFn: () => sendAnswers(user.token, asnwers),
     onSuccess: () => {
-      queryClient.invalidateQueries(["surveys"]); // ✅ no need to pass an object here
+      queryClient.invalidateQueries(["surveys"]); 
       navigate("/questionnaire");
       toast.success("  تم إرسال الاجابات بنجاح");
       setAnswers([]);

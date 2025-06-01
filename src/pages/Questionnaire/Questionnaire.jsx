@@ -8,8 +8,6 @@ import { getCategories, surveys } from "../../utilities/Apis";
 import { useSelector } from "react-redux";
 import SurveyCard from "../../components/Questionnaire/SurveyCard";
 
-
-
 export default function Questionnaire() {
   const navigate = useNavigate();
   const [isPopupOpen, setIsPopupOpen] = useState(false);

@@ -34,7 +34,7 @@ export default function ForgetOtp() {
 
   async function handleResendCode() {
     await axios
-      .post(`${baseUrl}/resendotp`, {
+      .post(`${baseUrl}/user/resendotp`, {
         email: localStorage.getItem("email"),
       })
       .then((res) => toast.success("resend verification code successfully"))

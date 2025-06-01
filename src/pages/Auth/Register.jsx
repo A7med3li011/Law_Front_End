@@ -355,7 +355,7 @@ export default function Register() {
       confirmPassword: "",
       companyName: "",
       phone: "",
-      role: "user",
+      role: "company",
       location: "",
       unifiedNumber: "",
     },

@@ -105,3 +105,27 @@ export async function UpdatesurveysById(token, data) {
 
   return res.data;
 }
+
+export const getBranches = async (token) => {
+  const response = await axios.get(`${baseUrl}/branch`, {
+    headers: {
+      token,
+    },
+  });
+  return response.data.data;
+};
+
+export const addBranch = async (branchData, token) => {
+  const formData = new FormData();
+  formData.append("name", branchData.name);
+  formData.append("location", branchData.location);
+  formData.append("image", branchData.image);
+  formData.append("description", branchData.description);
+  const response = await axios.post(`${baseUrl}/branch`, formData, {
+    headers: {
+      token,
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
+};

@@ -1,94 +1,110 @@
-import React from 'react';
-import { Card, CardMedia, CardContent, Typography, AvatarGroup, Avatar, IconButton, Box, LinearProgress } from '@mui/material';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import PushPinIcon from '@mui/icons-material/PushPin';
-import CommentIcon from '@mui/icons-material/Comment';
-
+import React from "react";
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  AvatarGroup,
+  Avatar,
+  IconButton,
+  Box,
+  LinearProgress,
+} from "@mui/material";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import PushPinIcon from "@mui/icons-material/PushPin";
+import CommentIcon from "@mui/icons-material/Comment";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 export default function ProjectCard({ project }) {
   return (
-    <Card sx={{ height: '95%', width: '80%' }}>
+    <Card sx={{ height: "95%", width: "80%" }}>
       <CardMedia
         component="img"
         height="150"
         image={project.image}
         alt={project.name}
-        sx={{ objectFit: 'cover', borderRadius: '8px' , width: '100%' , height: '50%'}}
+        sx={{
+          objectFit: "cover",
+          borderRadius: "8px",
+          width: "100%",
+          height: "50%",
+        }}
       />
       <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 2,
+            direction:"rtl"
+          }}
+        >
           <Typography
             sx={{
-              fontFamily: 'Tajawal',
-              fontSize: { xs: '14px', sm: '16px', md: '18px' },
+              fontFamily: "Tajawal",
+              fontSize: { xs: "14px", sm: "16px", md: "18px" },
               fontWeight: 700,
-              textAlign: 'right'
+              textAlign: "left",
             }}
           >
             {project.name}
           </Typography>
-          <AvatarGroup max={3} sx={{ '& .MuiAvatar-root': { width: 32, height: 32 } }}>
+          <AvatarGroup
+            max={3}
+            sx={{ "& .MuiAvatar-root": { width: 32, height: 32 } }}
+          >
             {project.members.map((member) => (
               <Avatar key={member.id} src={member.avatar} />
             ))}
           </AvatarGroup>
         </Box>
         {/* icons */}
-        <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        {/* <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end" }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <Typography
               sx={{
-                fontFamily: 'Tajawal',
-                fontSize: { xs: '12px', sm: '14px' },
-                color: '#818181'
+                fontFamily: "Tajawal",
+                fontSize: { xs: "12px", sm: "14px" },
+                color: "#818181",
               }}
             >
               {project.date}
             </Typography>
-            <CalendarTodayIcon sx={{ fontSize: { xs: 16, sm: 20 }, color: '#818181' }} />
+            <CalendarTodayIcon
+              sx={{ fontSize: { xs: 16, sm: 20 }, color: "#818181" }}
+            />
           </Box>
           <IconButton size="small">
-            <PushPinIcon sx={{ fontSize: { xs: 16, sm: 20 }, color: '#818181' }} />
+            <PushPinIcon
+              sx={{ fontSize: { xs: 16, sm: 20 }, color: "#818181" }}
+            />
           </IconButton>
           <IconButton size="small">
-            <CommentIcon sx={{ fontSize: { xs: 16, sm: 20 }, color: '#818181' }} />
+            <CommentIcon
+              sx={{ fontSize: { xs: 16, sm: 20 }, color: "#818181" }}
+            />
           </IconButton>
-        </Box>
-         {/* خط التقدم والنسبة المئوية */}
-        <Box sx={{ mb: 2 }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+        </Box> */}
+
+        <Box sx={{ mb: 2, mt: 2 }}>
+          <Box
+            sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mb: 1 }}
+          >
             <Typography
               sx={{
-                fontFamily: 'Tajawal',
-                fontSize: { xs: '12px', sm: '14px' },
-                color: '#052F72',
-                fontWeight: 'bold'
+                fontFamily: "Tajawal",
+                fontSize: { xs: "12px", sm: "14px" },
+                color: "#052F72",
+                fontWeight: "bold",
               }}
             >
-              {project.progress}%
+              {project.location}
             </Typography>
-            <Typography
-              sx={{
-                fontFamily: 'Tajawal',
-                fontSize: { xs: '12px', sm: '14px' },
-                color: '#818181'
-              }}
-            >
-              تقدم المشروع
-            </Typography>
+            <LocationOnIcon
+              sx={{ fontSize: { xs: 16, sm: 20 }, color: "#052F72" }}
+            />
+           
           </Box>
-          <LinearProgress 
-            variant="determinate" 
-            value={project.progress} 
-            sx={{ 
-              height: 8,
-              borderRadius: 4,
-              backgroundColor: '#E0E0E0',
-              '& .MuiLinearProgress-bar': {
-                borderRadius: 4,
-                backgroundColor: '#052F72'
-              }
-            }}
-          />
         </Box>
       </CardContent>
     </Card>

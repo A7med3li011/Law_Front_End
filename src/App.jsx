@@ -84,15 +84,15 @@ function App() {
     {
       path: "",
       element: (
-        // <ProtectedRoutes>
+        <ProtectedRoutes>
           <Layout />
-        // </ProtectedRoutes>
+        </ProtectedRoutes>
       ),
       children: [
         { path: "/", element: <Home /> },
         { path: "/questionnaire", element: <Questionnaire /> },
         { path: "/newQuestionnaire", element: <NewQuestionnaire /> },
-        { path: "/questionnaire/:surveyId/results", element: <Results /> },
+        { path: "/survey/:id", element: <Results /> },
         { path: "/setting", element: <Setting /> },
         { path: "/support", element: <Support /> },
         { path: "/FilterSearchPage", element: <FilterSearchPage /> },

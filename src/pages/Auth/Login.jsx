@@ -48,7 +48,7 @@ export default function Login() {
 
     const mydata = { email, password };
     await axios
-      .post(`${baseUrl}/login`, mydata)
+      .post(`${baseUrl}/user/login`, mydata)
       .then((res) => {
         localStorage.setItem("userID", res.data.user._id);
         dispatch(login(res.data));

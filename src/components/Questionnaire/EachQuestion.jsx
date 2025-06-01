@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import AutoComplete from "../../ui/AutoComplete";
-import { StroningContext } from "../../context/StoringContext";
+import { StoringContext } from "../../context/StoringContext";
 import { useSelector } from "react-redux";
 
 const workersClass = [
@@ -32,7 +32,8 @@ export default function EachQuestion({
     answer: { value: "", numberOfWorkers: "", numberOfRepetion: "" },
   });
 
-  const { asnwers, setAnswers } = useContext(StroningContext);
+  console.log(data, "nowww");
+  const { asnwers, setAnswers } = useContext(StoringContext);
   function handleRadioChange(value) {
     setAnswer((prev) => ({
       ...prev,
@@ -40,6 +41,8 @@ export default function EachQuestion({
         ...prev.answer,
         value: value,
       },
+      status:
+        value === "نعم" ? "active" : value === "لا" ? "achieved" : "settled",
     }));
   }
 

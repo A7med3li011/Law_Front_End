@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-
-export const baseUrl = "http://localhost:3001/api/v1/law";
+//http://62.72.35.44:3001/api/v1/law
+export const baseUrl = import.meta.env.VITE_API_URL;
 
 export async function updateUserbyId(reqData, token) {
   const formData = new FormData();
@@ -13,9 +13,9 @@ export async function updateUserbyId(reqData, token) {
   formData.append("email", reqData.email);
   formData.append("location", reqData.location);
   formData.append("phone", reqData.phone);
-  formData.append("birthDate", reqData.birthDate);
+  // formData.append("birthDate", reqData.birthDate);
   const res = await axios
-    .put(`${baseUrl}/`, formData, {
+    .put(`${baseUrl}/user`, formData, {
       headers: { token },
     })
     // .then((res) => toast.success("user Image updated successfully"))
@@ -64,10 +64,44 @@ export async function getVaiolations(token, categories) {
   return res.data;
 }
 export async function sendAnswers(token, payload) {
+  const res = await axios.post(`${baseUrl}/response/sendAnswers`, payload, {
+    headers: { token },
+  });
+
+  return res.data;
+}
+export async function getAnswers(token) {
+  const res = await axios.get(`${baseUrl}/response/getAnswers`, {
+    headers: { token },
+  });
+
+  return res.data;
+}
+export async function surveys(token) {
   const res = await axios
-    .post(`${baseUrl}/response/sendAnswers`, payload, {
+    .get(`${baseUrl}/response/surveys`, {
       headers: { token },
     })
     .catch((err) => toast.error(err.response.data.message));
+  return res.data;
+}
+export async function surveysById(token, id) {
+  const res = await axios
+    .get(`${baseUrl}/response/surveys/${id}`, {
+      headers: { token },
+    })
+    .catch((err) => toast.error(err.response.data.message));
+  return res.data;
+}
+export async function UpdatesurveysById(token, data) {
+  const payload = data?.map((ele) => ({
+    responseId: ele.responseId,
+    answer: ele.answer,
+    status: ele.status,
+  }));
+  const res = await axios.put(`${baseUrl}/response/update/`, payload, {
+    headers: { token },
+  });
+
   return res.data;
 }

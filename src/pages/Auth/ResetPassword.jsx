@@ -41,7 +41,7 @@ export default function ResetPassword() {
     };
     console.log(object);
     await axios
-      .post(`${baseUrl}/resetpassword`, object)
+      .post(`${baseUrl}/user/resetpassword`, object)
       .then((res) => {
         toast.success(res.data.message);
         navigate("/login");

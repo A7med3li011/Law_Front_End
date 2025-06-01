@@ -1,17 +1,20 @@
 import { createContext, useState, useContext, useEffect } from "react";
 
-export const StroningContext = createContext();
+export const StoringContext = createContext();
 
 export const StoringContextProvider = ({ children }) => {
   const [asnwers, setAnswers] = useState([]);
+  const [updatedAsnwers, setupdatedAsnwers] = useState([]);
 
   useEffect(() => {
-    console.log(asnwers);
-  }, [asnwers]);
+    console.log(updatedAsnwers);
+  }, [asnwers, updatedAsnwers]);
 
   return (
-    <StroningContext.Provider value={{ asnwers, setAnswers }}>
+    <StoringContext.Provider
+      value={{ asnwers, setAnswers, updatedAsnwers, setupdatedAsnwers }}
+    >
       {children}
-    </StroningContext.Provider>
+    </StoringContext.Provider>
   );
 };

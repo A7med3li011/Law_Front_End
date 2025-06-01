@@ -1,29 +1,38 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getVaiolations, sendAnswers } from "../../utilities/Apis";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import EachQuestion from "../../components/Questionnaire/EachQuestion";
 import { useContext, useState } from "react";
-import { StroningContext } from "../../context/StoringContext";
+import { StoringContext } from "../../context/StoringContext";
 import { toast } from "react-toastify";
 
 export default function NewQuestionnaire() {
   const location = useLocation();
   const user = useSelector((store) => store.user);
-  const { asnwers, setAnswers } = useContext(StroningContext);
+  const { asnwers, setAnswers } = useContext(StoringContext);
   const { categories } = location.state || [];
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  const {mutate} = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ["sendAnswers"],
     mutationFn: () => sendAnswers(user.token, asnwers),
-    onSuccess:()=>{
-      toast.success("تم ارسال الاجابات بنجاح")
-    }
+    onSuccess: () => {
+      queryClient.invalidateQueries(["surveys"]); // ✅ no need to pass an object here
+      navigate("/questionnaire");
+      toast.success("  تم إرسال الاجابات بنجاح");
+      setAnswers([]);
+    },
+    onError: () => {
+      toast.error("حدث خطأ أثناء إرسال الإجابات");
+    },
   });
+
   const { data, isFetching, isLoading } = useQuery({
     queryKey: ["questions"],
     queryFn: () => getVaiolations(user.token, categories),
-    enabled: !!user.token,
+    enabled: !!user.token && !!categories?.length,
   });
 
   const totalQuestions =
@@ -43,7 +52,10 @@ export default function NewQuestionnaire() {
     <div className="text-black">
       <div className="flex items-center justify-between flex-row-reverse">
         <h3 className="text-lg font-semibold">استبيان مخالفات</h3>
-        <button  onClick={mutate} className="py-2 px-5 text-white bg-primary rounded-lg">
+        <button
+          onClick={mutate}
+          className="py-2 px-5 text-white bg-primary rounded-lg"
+        >
           تسجيل
         </button>
       </div>

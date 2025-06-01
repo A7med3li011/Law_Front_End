@@ -21,7 +21,7 @@ export default function Otp() {
     e.preventDefault(e);
     const code = `${code1}${code2}${code3}${code4}${code5}`;
     await axios
-      .post(`${baseUrl}/otp`, {
+      .post(`${baseUrl}/user/otp`, {
         code,
         email: localStorage.getItem("email"),
       })
@@ -34,7 +34,7 @@ export default function Otp() {
 
   async function handleResendCode() {
     await axios
-      .post(`${baseUrl}/resendotp`, {
+      .post(`${baseUrl}/user/resendotp`, {
         email: localStorage.getItem("email"),
       })
       .then((res) => toast.success("resend verification code successfully"))

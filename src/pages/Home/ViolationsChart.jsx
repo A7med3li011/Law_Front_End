@@ -1,14 +1,17 @@
-import React from 'react';
+import React from "react";
 
 export default function ViolationsChart({ data = [] }) {
   // Process data to get categories
   const categories = data?.map((ele) => ele?.questionId?.categoryId?.title);
   const uniqueCategories = Array.from(new Set(categories));
-  
-  let categoryData = Array.from({ length: uniqueCategories.length }, (_, i) => ({
-    title: uniqueCategories[i],
-    items: [],
-  }));
+
+  let categoryData = Array.from(
+    { length: uniqueCategories.length },
+    (_, i) => ({
+      title: uniqueCategories[i],
+      items: [],
+    })
+  );
 
   // Group data by category
   categoryData?.forEach((category, index) => {
@@ -21,33 +24,44 @@ export default function ViolationsChart({ data = [] }) {
 
   // Calculate percentages for pie chart
   const totalItems = data.length || 1;
-  const violationPercentage = Math.round(
-    (data?.filter((ele) => ele.answer?.value === "نعم").length / totalItems) * 100
-  ) || 0;
-  
-  const passedPercentage = Math.round(
-    (data?.filter((ele) => ele.answer?.value === "لا").length / totalItems) * 100
-  ) || 0;
-  
-  const notApplicablePercentage = Math.round(
-    (data?.filter((ele) => ele.answer?.value === "لا ينطبق").length / totalItems) * 100
-  ) || 0;
+  const violationPercentage =
+    Math.round(
+      (data?.filter((ele) => ele.answer?.value === "نعم").length / totalItems) *
+        100
+    ) || 0;
+
+  const passedPercentage =
+    Math.round(
+      (data?.filter((ele) => ele.answer?.value === "لا").length / totalItems) *
+        100
+    ) || 0;
+
+  const notApplicablePercentage =
+    Math.round(
+      (data?.filter((ele) => ele.answer?.value === "لا ينطبق").length /
+        totalItems) *
+        100
+    ) || 0;
 
   // SVG circle calculations
   const radius = 18;
   const circumference = 2 * Math.PI * radius;
-  
-  const violationOffset = circumference - (violationPercentage / 100) * circumference;
+
+  const violationOffset =
+    circumference - (violationPercentage / 100) * circumference;
   const passedOffset = circumference - (passedPercentage / 100) * circumference;
-  const notApplicableOffset = circumference - (notApplicablePercentage / 100) * circumference;
+  const notApplicableOffset =
+    circumference - (notApplicablePercentage / 100) * circumference;
 
   return (
     <div className="bg-white rounded-xl shadow-md p-4">
       <div className="flex flex-col md:flex-row gap-4">
         {/* Pie Chart Section */}
         <div className="w-full md:w-1/4 flex flex-col items-center justify-center border-r border-gray-200 pr-4">
-          <h3 className="text-lg font-semibold text-gray-600 mb-4">المخالفات</h3>
-          
+          <h3 className="text-lg font-semibold text-gray-600 mb-4">
+            المخالفات
+          </h3>
+
           {/* Pie Chart */}
           <div className="relative w-40 h-40 mb-4">
             <svg
@@ -65,7 +79,7 @@ export default function ViolationsChart({ data = [] }) {
                 strokeWidth="3"
                 fill="none"
               />
-              
+
               {/* Violations (Green - outer ring) */}
               <circle
                 cx="21"
@@ -78,7 +92,7 @@ export default function ViolationsChart({ data = [] }) {
                 strokeDashoffset={violationOffset}
                 strokeLinecap="round"
               />
-              
+
               {/* Passed (Blue - middle ring) */}
               <circle
                 cx="21"
@@ -91,7 +105,7 @@ export default function ViolationsChart({ data = [] }) {
                 strokeDashoffset={passedOffset * 0.83}
                 strokeLinecap="round"
               />
-              
+
               {/* Not Applicable (Yellow - inner ring) */}
               <circle
                 cx="21"
@@ -131,8 +145,12 @@ export default function ViolationsChart({ data = [] }) {
             <h3 className="text-lg font-semibold text-blue-900 mr-2">
               جهات المخالفات
             </h3>
-            <svg className="text-blue-900 w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 7.03-14.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
+            <svg
+              className="text-blue-900 w-5 h-5"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 7.03-14.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z" />
             </svg>
           </div>
 
@@ -151,9 +169,12 @@ export default function ViolationsChart({ data = [] }) {
                   (item) => item?.answer?.value === "لا ينطبق"
                 ).length;
 
-                const violationHeight = (categoryViolations / totalCategoryItems) * 200;
-                const passedHeight = (categoryPassed / totalCategoryItems) * 200;
-                const notApplicableHeight = (categoryNotApplicable / totalCategoryItems) * 200;
+                const violationHeight =
+                  (categoryViolations / totalCategoryItems) * 200;
+                const passedHeight =
+                  (categoryPassed / totalCategoryItems) * 200;
+                const notApplicableHeight =
+                  (categoryNotApplicable / totalCategoryItems) * 200;
 
                 return (
                   <div
@@ -161,7 +182,10 @@ export default function ViolationsChart({ data = [] }) {
                     className="flex flex-col items-center min-w-[60px] flex-1"
                   >
                     {/* Stacked Bar */}
-                    <div className="w-8 flex flex-col-reverse" style={{ height: '200px' }}>
+                    <div
+                      className="w-8 flex flex-col-reverse"
+                      style={{ height: "200px" }}
+                    >
                       {/* Violations */}
                       {violationHeight > 0 && (
                         <div
@@ -169,7 +193,7 @@ export default function ViolationsChart({ data = [] }) {
                           style={{ height: `${violationHeight}px` }}
                         />
                       )}
-                      
+
                       {/* Passed */}
                       {passedHeight > 0 && (
                         <div
@@ -177,7 +201,7 @@ export default function ViolationsChart({ data = [] }) {
                           style={{ height: `${passedHeight}px` }}
                         />
                       )}
-                      
+
                       {/* Not Applicable */}
                       {notApplicableHeight > 0 && (
                         <div
@@ -203,15 +227,17 @@ export default function ViolationsChart({ data = [] }) {
           <div className="flex justify-center mt-6 gap-6 flex-wrap">
             <div className="flex items-center">
               <div className="w-4 h-4 bg-blue-900 ml-2"></div>
-              <span className="text-sm text-black">عدد المخالفات</span>
-            </div>
-            <div className="flex items-center">
-              <div className="w-4 h-4 bg-[#AEB9E1] ml-2"></div>
               <span className="text-sm text-black">عدد المخالفات المتجازة</span>
             </div>
             <div className="flex items-center">
+              <div className="w-4 h-4 bg-[#AEB9E1] ml-2"></div>
+              <span className="text-sm text-black">عدد المخالفات</span>
+            </div>
+            <div className="flex items-center">
               <div className="w-4 h-4 bg-gray-200 ml-2"></div>
-              <span className="text-sm text-black">عدد المخالفات التي لم تنطبق</span>
+              <span className="text-sm text-black">
+                عدد المخالفات التي لم تنطبق
+              </span>
             </div>
           </div>
         </div>

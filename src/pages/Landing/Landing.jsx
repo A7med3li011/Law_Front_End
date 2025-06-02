@@ -7,12 +7,13 @@ import HowItWorks from "./sections/HowItWorks.jsx";
 import LandingNavbar from "./sections/LandingNavbar.jsx";
 import Partaners from "./sections/Partaners.jsx";
 import Testimonials from "./sections/Testimonials.jsx";
-
+import Logo from "./sections/Logo.jsx";
 export default function Landing() {
   return (
     <div>
       <LandingNavbar />
       <Hero />
+      <Logo />
       <Partaners />
       <Features />
       <AboutUs />

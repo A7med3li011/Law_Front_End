@@ -18,6 +18,7 @@ import Questionnaire from "./pages/Questionnaire/Questionnaire";
 import NewQuestionnaire from "./pages/Questionnaire/NewQuestionnaire";
 import Results from "./pages/Questionnaire/Results";
 import Branchdetails from "./pages/ProjectPage/Branchdetails.jsx";
+import Landing from "./pages/Landing/Landing.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -41,8 +42,7 @@ function App() {
       path: "/otp",
       element: (
         <ReverseProtectedRoutes>
-          {" "}
-          <Otp />{" "}
+          <Otp />
         </ReverseProtectedRoutes>
       ),
     },
@@ -50,7 +50,6 @@ function App() {
       path: "/login",
       element: (
         <ReverseProtectedRoutes>
-          {" "}
           <Login />
         </ReverseProtectedRoutes>
       ),
@@ -59,8 +58,7 @@ function App() {
       path: "/forgetPassword",
       element: (
         <ReverseProtectedRoutes>
-          {" "}
-          <FrogetPassword />{" "}
+          <FrogetPassword />
         </ReverseProtectedRoutes>
       ),
     },
@@ -68,8 +66,7 @@ function App() {
       path: "/forgetOtp",
       element: (
         <ReverseProtectedRoutes>
-          {" "}
-          <ForgetOtp />{" "}
+          <ForgetOtp />
         </ReverseProtectedRoutes>
       ),
     },
@@ -77,11 +74,19 @@ function App() {
       path: "/resetPassword",
       element: (
         <ReverseProtectedRoutes>
-          {" "}
-          <ResetPassword />{" "}
+          <ResetPassword />
         </ReverseProtectedRoutes>
       ),
     },
+    {
+      path: "/",
+      element: (
+        <ReverseProtectedRoutes>
+          <Landing />
+        </ReverseProtectedRoutes>
+      ),
+    },
+
     {
       path: "",
       element: (
@@ -90,7 +95,7 @@ function App() {
         </ProtectedRoutes>
       ),
       children: [
-        { path: "/", element: <Home /> },
+        { path: "/home", element: <Home /> },
         { path: "/questionnaire", element: <Questionnaire /> },
         { path: "/newQuestionnaire", element: <NewQuestionnaire /> },
         { path: "/survey/:id", element: <Results /> },

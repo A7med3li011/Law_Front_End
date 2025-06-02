@@ -177,7 +177,9 @@ export default function EachResult({ data, onAnswerChange }) {
       {/* Conditional fields */}
       {data.questionId.needNumberOFRepetition &&
         newAnswer.answer.value === "نعم" && (
-          <AutoComplete
+         <div>
+          <span>عدد مرات تكرار المخالفة</span>
+           <AutoComplete
             getOptionLabel={(option) => option}
             size="small"
             parentDeco="w-1/3 !mt-5 py-0"
@@ -189,6 +191,7 @@ export default function EachResult({ data, onAnswerChange }) {
               handleRepeChange(newValue);
             }}
           />
+         </div>
         )}
 
       {data.questionId.needNumberOFWorkers &&

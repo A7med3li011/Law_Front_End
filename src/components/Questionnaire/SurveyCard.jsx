@@ -27,7 +27,10 @@ export default function SurveyCard({ survey }) {
             loading="lazy"
           />
         ) : (
-          <FontAwesomeIcon icon={"fa-solid fa-house" } className="text-5xl text-gray-400" />
+          <FontAwesomeIcon
+            icon={"fa-solid fa-house"}
+            className="text-5xl text-gray-400"
+          />
         )}
       </div>
 
@@ -91,7 +94,6 @@ export default function SurveyCard({ survey }) {
                 (ele) => ele?.responseId?.answer?.value == "نعم"
               ).length
             }{" "}
-            سؤالاً
           </span>
         </div>
       </div>

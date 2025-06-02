@@ -53,7 +53,7 @@ export default function Login() {
         localStorage.setItem("userID", res.data.user._id);
         dispatch(login(res.data));
         toast.success("welcome back");
-        navigate("/");
+        navigate("/home");
       })
       .catch((err) => {
         toast.error(err.response.data.message);

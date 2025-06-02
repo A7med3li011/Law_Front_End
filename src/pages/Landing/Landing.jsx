@@ -7,9 +7,10 @@ import HowItWorks from "./sections/HowItWorks.jsx";
 import LandingNavbar from "./sections/LandingNavbar.jsx";
 import Partaners from "./sections/Partaners.jsx";
 import Testimonials from "./sections/Testimonials.jsx";
-
+import Logo from "./sections/Logo.jsx";
 export default function Landing() {
   return (
+
     <>
       <div
         className="w-full max-w-[1500px] mx-auto px-8 sm:px-6 lg:px-8 py-4 lg:py-6 space-y-8"
@@ -24,6 +25,7 @@ export default function Landing() {
         {/* <Testimonials /> */}
         <FAQ />
       </div>
+
       <Footer />
     </>
   );

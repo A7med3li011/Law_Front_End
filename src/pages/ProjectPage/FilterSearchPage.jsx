@@ -22,7 +22,7 @@ export default function FilterSearchPage() {
   });
 
   const handleProjectClick = (projectId) => {
-    navigate(/FilterSearchPage/project/${projectId});
+    navigate(`/FilterSearchPage/project/${projectId}`);
   };
 
   if (isLoading) return <p>Loading...</p>;

@@ -80,12 +80,12 @@ export default function ViolationsChart({ data = [] }) {
                 fill="none"
               />
 
-              {/* Violations (Green - outer ring) */}
+              {/* Violations (outer ring) */}
               <circle
                 cx="21"
                 cy="21"
                 r="18"
-                stroke="#2EB352"
+                stroke="#AEB9E1"
                 strokeWidth="3"
                 fill="none"
                 strokeDasharray={circumference}
@@ -93,7 +93,7 @@ export default function ViolationsChart({ data = [] }) {
                 strokeLinecap="round"
               />
 
-              {/* Passed (Blue - middle ring) */}
+              {/* Passed (middle ring) */}
               <circle
                 cx="21"
                 cy="21"
@@ -106,12 +106,12 @@ export default function ViolationsChart({ data = [] }) {
                 strokeLinecap="round"
               />
 
-              {/* Not Applicable (Yellow - inner ring) */}
+              {/* Not Applicable (inner ring) */}
               <circle
                 cx="21"
                 cy="21"
                 r="12"
-                stroke="#F7B21B"
+                stroke="#D1D5DB"
                 strokeWidth="3"
                 fill="none"
                 strokeDasharray={circumference * 0.67}
@@ -125,15 +125,24 @@ export default function ViolationsChart({ data = [] }) {
           <div className="w-full space-y-2 text-sm">
             <div className="flex justify-between items-center">
               <span className="text-gray-600">{violationPercentage}%</span>
-              <span className="text-black">عدد المخالفات</span>
+              <div className="flex items-center">
+                <span className="text-black">عدد المخالفات</span>
+                <div className="w-4 h-4 bg-[#AEB9E1] mr-2"></div>
+              </div>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-600">{passedPercentage}%</span>
-              <span className="text-black">المخالفات المجتازة</span>
+              <div className="flex items-center">
+                <span className="text-black">المخالفات المجتازة</span>
+                <div className="w-4 h-4 bg-blue-900 mr-2"></div>
+              </div>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-600">{notApplicablePercentage}%</span>
-              <span className="text-black">عدد المخالفات التي لم تنطبق</span>
+              <div className="flex items-center">
+                <span className="text-black">عدد المخالفات التي لم تنطبق</span>
+                <div className="w-4 h-4 bg-gray-200 mr-2"></div>
+              </div>
             </div>
           </div>
         </div>

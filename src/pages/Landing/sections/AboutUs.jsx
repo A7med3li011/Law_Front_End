@@ -9,7 +9,7 @@ export default function AboutUs() {
         <div className="text-center lg:text-right max-w-xl space-y-3">
           <h2 className="text-4xl font-extrabold text-primary  mb-6 flex flex-col items-start gap-3">
             من نحن
-            <div className="w-28 h-2 bg-secondary text-right"></div>
+            <div className="w-28 h-2 bg-secondary text-right "></div>
           </h2>
           <p className="text-primary font-semibold text-lg">
             وداعًا للغرامات المفاجئة: نحن هنا لحمايتك.

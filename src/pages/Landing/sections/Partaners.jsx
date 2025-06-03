@@ -1,71 +1,68 @@
-import React, { useState } from 'react';
-import img1 from '/src/pages/Landing/sections/Logo/img1.png';
-import img2 from '/src/pages/Landing/sections/Logo/img2.png';
-import img3 from '/src/pages/Landing/sections/Logo/img3.png';
-import img4 from '/src/pages/Landing/sections/Logo/img4.png';
-import img5 from '/src/pages/Landing/sections/Logo/img5.png';
-// Fake partner images (using placeholder images)
-const partnerImages = [
-img1, img2, img3, img4, img5,
-];
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/autoplay";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+// Import your images
+import img1 from "/src/pages/Landing/sections/Logo/img1.png";
+import img2 from "/src/pages/Landing/sections/Logo/img2.png";
+import img3 from "/src/pages/Landing/sections/Logo/img3.png";
+import img4 from "/src/pages/Landing/sections/Logo/img4.png";
+import img5 from "/src/pages/Landing/sections/Logo/img5.png";
+import homeScreen from "../../../../public/screenHome.svg";
 
 export default function Partners() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Handle next slide
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === partnerImages.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  // Handle previous slide
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? partnerImages.length - 1 : prevIndex - 1
-    );
-  };
-
+  // Create a duplicated array for seamless looping
+  const partners = [img1, img2, img3, img4, img5,img3];
+  const duplicatedPartners = [...partners, ...partners];
+  
   return (
-    <div className="relative py-12 bg-white  p-15">
-      <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center text-[#052F72] mb-8 font-['Hind_Vadodara']">
-          Our Partners
-        </h2>
-        <div className="relative overflow-hidden">
-          {/* Slider Container */}
-          <div
-            className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-          >
-            {partnerImages.map((image, index) => (
-              <div
-                key={index}
-                className="flex-shrink-0 w-full sm:w-1/3 md:w-1/4 lgoxia
-                flex justify-center items-center"
-              >
+    <div className="relative py-12 bg-white px-4 flex flex-col items-center">
+      <img src={homeScreen} alt="home screen" className="mb-6" />
+      <h2 className="text-3xl font-bold text-center text-[#052F72] mb-8">
+        شركـاء النجـاح
+      </h2>
+      
+
+      <div className="w-full">
+        <Swiper
+          modules={[Autoplay, Pagination, Navigation]}
+          spaceBetween={20}
+          slidesPerView={5}
+          loop={true}
+          autoplay={{
+            delay: 2000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+          }}
+          // pagination={{ clickable: true }}
+          // navigation={true}
+          grabCursor={true}
+          breakpoints={{
+            0: { slidesPerView: 1 },
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 5 },
+          }}
+          // Add these settings for better loop handling
+          loopAdditionalSlides={3}
+          loopFillGroupWithBlank={false}
+        >
+          {duplicatedPartners.map((img, index) => (
+            <SwiperSlide key={index} className="flex justify-center">
+              <div className=" p-4 rounded-lg shadow-sm flex justify-center items-center h-32 md:h-40 w-full mx-auto">
                 <img
-                  src={image}
-                  alt={`Partner ${index + 1}`}
-                  className="h-20 w-40 object-contain"
+                  src={img}
+                  loading="lazy"
+                  alt={`Partner ${index % partners.length + 1}`}
+                  className="max-h-full max-w-full object-contain transition duration-300 hover:scale-105 "
                 />
               </div>
-            ))}
-          </div>
-          {/* Navigation Arrows */}
-          <button
-            onClick={prevSlide}
-            className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-full"
-          >
-            ←
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-full"
-          >
-            →
-          </button>
-        </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </div>
   );

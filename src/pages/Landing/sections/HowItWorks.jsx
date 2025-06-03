@@ -13,7 +13,7 @@ export default function HowItWorks() {
         <div className="text-center lg:text-right max-w-xl">
           <h2 className="text-4xl font-extrabold text-primary  mb-6 flex flex-col items-start gap-3">
             آلية ممتثل
-            <div className="w-28 h-2 bg-secondary text-right"></div>
+            <div className="w-28 h-2 bg-secondary text-right "></div>
           </h2>
           <p className="text-gray-600 text-lg">
             للحصول على حساب في ممتثل يمكنك مشاهدة الفيديو واتباع الخطوات

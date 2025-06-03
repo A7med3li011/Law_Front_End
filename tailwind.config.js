@@ -8,7 +8,16 @@ module.exports = {
         secondary: "#F7B21B",
         light: "#B9B8B8",
       },
+      keyframes: {
+        underline: {
+          "0%": { width: "0%" },
+          "100%": { width: "100%" },
+        },
+      },
+      animation: {
+        underline: "underline 2s ease forwards",
+      },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };

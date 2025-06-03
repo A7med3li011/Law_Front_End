@@ -3,8 +3,32 @@
 @tailwind utilities;
 
 .myabs {
-    position: absolute;
-    top: -18px;
-    right: -194%;
-    
+  position: absolute;
+  top: -18px;
+  right: -194%;
+}
+
+/* WebKit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f7b21b; /* your secondary color */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e09e18;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #f7b21b #f1f1f1;
 }

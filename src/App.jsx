@@ -79,15 +79,12 @@ function App() {
       ),
     },
     {
-      path: "/",
-      element: (
-        <ReverseProtectedRoutes>
-          <Landing />
-        </ReverseProtectedRoutes>
-      ),
-    },
 
+      path: "/",
+      element: <Landing />,
+    },
     {
+
       path: "",
       element: (
         <ProtectedRoutes>

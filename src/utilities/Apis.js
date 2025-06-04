@@ -134,3 +134,11 @@ export const addBranch = async (branchData, token) => {
   });
   return response.data;
 };
+
+export async function getBranchDetails(token, id) {
+  const res = await axios.get(`${baseUrl}/response/getAnswers/${id}`, {
+    headers: { token },
+  });
+
+  return res.data;
+}

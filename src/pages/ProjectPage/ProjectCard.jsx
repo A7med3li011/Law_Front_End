@@ -10,9 +10,7 @@ import {
   Box,
   LinearProgress,
 } from "@mui/material";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import PushPinIcon from "@mui/icons-material/PushPin";
-import CommentIcon from "@mui/icons-material/Comment";
+import BusinessIcon from "@mui/icons-material/Business";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import defualtImage from "../../../public/default-png.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -50,46 +48,29 @@ export default function ProjectCard({ project }) {
               textAlign: "left",
             }}
           >
-            {project.name}
+            {project.branchName}
           </Typography>
-          {/* <AvatarGroup
-            max={3}
-            sx={{ "& .MuiAvatar-root": { width: 32, height: 32 } }}
-          >
-            {project.members.map((member) => (
-              <Avatar key={member.id} src={member.avatar} />
-            ))}
-          </AvatarGroup> */}
+
         </Box>
-        {/* icons */}
-        {/* <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end" }}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+
+        <Box sx={{ mb: 2, mt: 2 }}>
+          <Box
+            sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mb: 1 }}
+          >
             <Typography
               sx={{
                 fontFamily: "Tajawal",
                 fontSize: { xs: "12px", sm: "14px" },
-                color: "#818181",
+                color: "#052F72",
+                fontWeight: "bold",
               }}
             >
-              {project.date}
+              {project.mastercompany.companyName}
             </Typography>
-            <CalendarTodayIcon
-              sx={{ fontSize: { xs: 16, sm: 20 }, color: "#818181" }}
+            <BusinessIcon
+              sx={{ fontSize: { xs: 16, sm: 20 }, color: "#052F72" }}
             />
           </Box>
-          <IconButton size="small">
-            <PushPinIcon
-              sx={{ fontSize: { xs: 16, sm: 20 }, color: "#818181" }}
-            />
-          </IconButton>
-          <IconButton size="small">
-            <CommentIcon
-              sx={{ fontSize: { xs: 16, sm: 20 }, color: "#818181" }}
-            />
-          </IconButton>
-        </Box> */}
-
-        <Box sx={{ mb: 2, mt: 2 }}>
           <Box
             sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mb: 1 }}
           >

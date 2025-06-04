@@ -94,10 +94,13 @@ export async function surveysById(token, id) {
   return res.data;
 }
 export async function UpdatesurveysById(token, data) {
+ 
   const payload = data?.map((ele) => ({
     responseId: ele.responseId,
+    assignTo: ele.assignTo,
     answer: ele.answer,
     status: ele.status,
+    createdBy: ele.createdBy,
   }));
   const res = await axios.put(`${baseUrl}/response/update/`, payload, {
     headers: { token },

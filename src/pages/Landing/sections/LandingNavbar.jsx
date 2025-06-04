@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -7,7 +7,7 @@ export default function LandingNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
-
+  const navigate = useNavigate();
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -97,7 +97,10 @@ export default function LandingNavbar() {
         </ul>
 
         <div className="flex items-center space-x-4">
-          <button className="hidden md:block bg-blue-800 hover:bg-blue-900 text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 shadow">
+          <button
+            onClick={() => navigate("/register")}
+            className="hidden md:block bg-blue-800 hover:bg-blue-900 text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 shadow"
+          >
             تسجيل
           </button>
 

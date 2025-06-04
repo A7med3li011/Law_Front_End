@@ -22,7 +22,7 @@ export default function FilterSearchPage() {
   });
 
   const handleProjectClick = (projectId) => {
-    navigate(`/FilterSearchPage/project/${projectId}`);
+    navigate(`project/${projectId}`);
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -44,7 +44,7 @@ export default function FilterSearchPage() {
         {projects?.map((project) => (
           <Grid item xs={12} sm={6} md={4} key={project.id}>
             <Box
-              onClick={() => handleProjectClick(project.id)}
+              onClick={() => handleProjectClick(project._id)}
               sx={{
                 cursor: "pointer",
                 "&:hover": {

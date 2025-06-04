@@ -83,6 +83,14 @@ function App() {
       ),
     },
     {
+<<<<<<< Updated upstream
+=======
+      path: "/",
+      element: <Landing />,
+    },
+
+    {
+>>>>>>> Stashed changes
       path: "",
       element: (
         <ProtectedRoutes>

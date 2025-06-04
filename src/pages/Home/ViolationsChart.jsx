@@ -125,21 +125,21 @@ export default function ViolationsChart({ data = [] }) {
           <div className="w-full space-y-2 text-sm">
             <div className="flex justify-between items-center">
               <span className="text-gray-600">{violationPercentage}%</span>
-              <div className="flex items-center">
+              <div className="flex items-center space-x-2">
                 <span className="text-black">عدد المخالفات</span>
                 <div className="w-4 h-4 bg-[#AEB9E1] mr-2"></div>
               </div>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-600">{passedPercentage}%</span>
-              <div className="flex items-center">
+              <div className="flex items-center space-x-2">
                 <span className="text-black">المخالفات المجتازة</span>
                 <div className="w-4 h-4 bg-blue-900 mr-2"></div>
               </div>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-600">{notApplicablePercentage}%</span>
-              <div className="flex items-center">
+              <div className="flex items-center space-x-2">
                 <span className="text-black">عدد المخالفات التي لم تنطبق</span>
                 <div className="w-4 h-4 bg-gray-200 mr-2"></div>
               </div>
@@ -235,18 +235,18 @@ export default function ViolationsChart({ data = [] }) {
           {/* Legend */}
           <div className="flex justify-center mt-6 gap-6 flex-wrap">
             <div className="flex items-center">
-              <div className="w-4 h-4 bg-blue-900 ml-2"></div>
               <span className="text-sm text-black">عدد المخالفات المتجازة</span>
+              <div className="w-4 h-4 bg-blue-900 ml-2 space-x-2"></div>
             </div>
-            <div className="flex items-center">
-              <div className="w-4 h-4 bg-[#AEB9E1] ml-2"></div>
+            <div className="flex items-center space-x-2">
               <span className="text-sm text-black">عدد المخالفات</span>
+              <div className="w-4 h-4 bg-[#AEB9E1] ml-2"></div>
             </div>
-            <div className="flex items-center">
-              <div className="w-4 h-4 bg-gray-200 ml-2"></div>
+            <div className="flex items-center space-x-2">
               <span className="text-sm text-black">
                 عدد المخالفات التي لم تنطبق
               </span>
+              <div className="w-4 h-4 bg-gray-200 ml-2"></div>
             </div>
           </div>
         </div>

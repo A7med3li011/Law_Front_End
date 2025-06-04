@@ -3,15 +3,17 @@ import FourCardsComponent from "../Home/FourCardsComponent";
 import RequestsTable from "../Home/RequestsTable";
 import ViolationsChart from "../Home/ViolationsChart";
 import { useQuery } from "react-query";
-import { getAnswers } from "../../utilities/Apis";
+import { getBranchDetails } from "../../utilities/Apis";
 import { useSelector } from "react-redux";
 import Card from "../Home/Card";
+import { useParams } from "react-router-dom";
 //----------------------------------------------
 export default function Branchdetails() {
   const user = useSelector((store) => store.user);
+  const { id } = useParams("id");
   const { data } = useQuery({
-    queryKey: ["get_answers"],
-    queryFn: () => getAnswers(user.token),
+    queryKey: ["getBranchDetails"],
+    queryFn: () => getBranchDetails(user.token, id),
   });
 
   return (

@@ -64,10 +64,12 @@ export async function getVaiolations(token, categories) {
   return res.data;
 }
 export async function sendAnswers(token, payload) {
+  console.log("payload", payload);
+  return;
   const res = await axios.post(`${baseUrl}/response/sendAnswers`, payload, {
     headers: { token },
   });
-
+   
   return res.data;
 }
 export async function getAnswers(token) {

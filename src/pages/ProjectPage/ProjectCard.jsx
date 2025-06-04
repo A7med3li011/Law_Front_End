@@ -14,21 +14,24 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import PushPinIcon from "@mui/icons-material/PushPin";
 import CommentIcon from "@mui/icons-material/Comment";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import defualtImage from "../../../public/default-png.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function ProjectCard({ project }) {
   return (
     <Card sx={{ height: "95%", width: "80%" }}>
       <CardMedia
         component="img"
         height="150"
-        image={project?.image?.secure_url}
+        image={project?.image?.secure_url || defualtImage}
         alt={project.name}
         sx={{
           objectFit: "cover",
           borderRadius: "8px",
           width: "100%",
-          height: "50%",
+          height: "180px",
         }}
       />
+
       <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
         <Box
           sx={{
@@ -36,7 +39,7 @@ export default function ProjectCard({ project }) {
             justifyContent: "space-between",
             alignItems: "center",
             mb: 2,
-            direction:"rtl"
+            direction: "rtl",
           }}
         >
           <Typography
@@ -103,7 +106,6 @@ export default function ProjectCard({ project }) {
             <LocationOnIcon
               sx={{ fontSize: { xs: 16, sm: 20 }, color: "#052F72" }}
             />
-           
           </Box>
         </Box>
       </CardContent>

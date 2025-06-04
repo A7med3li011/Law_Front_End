@@ -25,13 +25,13 @@ export default function EachQuestion({
   needRepeations,
 }) {
   const user = useSelector((store) => store.user.user);
+  // console.log(user._id);
   const { asnwers, setAnswers } = useContext(StoringContext);
   const [answer, setAnswer] = useState({
     questionId: data?._id || "",
     createdBy: user._id,
-    assignTo: user.branchId ||  user._id  ,
+    assignTo: user.branchId || user._id,
     answer: { value: "", numberOfWorkers: "", numberOfRepetion: "" },
-    
   });
 
   // تحديث الإجابات عند التغيير
@@ -51,6 +51,8 @@ export default function EachQuestion({
         setAnswers((prev) => [...prev, answer]);
       }
     }
+
+    console.log(answer, "cccccccc");
   }, [answer]);
 
   const handleRadioChange = (value) => {

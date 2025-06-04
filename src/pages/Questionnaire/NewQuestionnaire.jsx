@@ -19,7 +19,7 @@ const handleSubmit = () => {
   // لا نتحقق من وجود فرع قبل الإرسال
   const updatedAnswers = asnwers.map(answer => ({
     ...answer,
-    assignTo: selectedBranch || user.user.branchId || null
+    assignTo: selectedBranch || user.user._id || null
   }));
 
   mutate(updatedAnswers);

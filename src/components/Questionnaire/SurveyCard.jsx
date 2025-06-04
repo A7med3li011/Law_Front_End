@@ -19,15 +19,22 @@ export default function SurveyCard({ survey }) {
     >
       {/* Image */}
       <div className="bg-gray-200 flex items-center justify-center h-52 overflow-hidden rounded-t-lg  ">
-        {survey.assignTo?.image?.secure_url ? (
+        {survey.assignTo?.image?.secure_url ||
+        survey.createdBy?.image?.secure_url ? (
           <img
-            src={survey.assignTo?.image?.secure_url}
+            src={
+              survey.assignTo?.image?.secure_url ||
+              survey?.createdBy?.image?.secure_url
+            }
             alt="Survey"
             className="w-full h-full object-cover  "
             loading="lazy"
           />
         ) : (
-          <FontAwesomeIcon icon={"fa-solid fa-house" } className="text-5xl text-gray-400" />
+          <FontAwesomeIcon
+            icon={"fa-solid fa-house"}
+            className="text-5xl text-gray-400"
+          />
         )}
       </div>
 
@@ -38,7 +45,9 @@ export default function SurveyCard({ survey }) {
             <span className="font-semibold mx-1">:</span>
             <span className="font-semibold">الشركة/الفرع</span>
           </span>
-          <span>{survey?.assignTo?.companyName}</span>
+          <span>
+            {survey?.assignTo?.branchName || survey?.createdBy?.companyName}
+          </span>
         </div>
 
         <div className="flex flex-col items-end gap-1">
@@ -91,7 +100,6 @@ export default function SurveyCard({ survey }) {
                 (ele) => ele?.responseId?.answer?.value == "نعم"
               ).length
             }{" "}
-            سؤالاً
           </span>
         </div>
       </div>

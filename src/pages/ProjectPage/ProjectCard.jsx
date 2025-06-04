@@ -12,21 +12,24 @@ import {
 } from "@mui/material";
 import BusinessIcon from "@mui/icons-material/Business";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import defualtImage from "../../../public/default-png.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function ProjectCard({ project }) {
   return (
     <Card sx={{ height: "95%", width: "80%" }}>
       <CardMedia
         component="img"
         height="150"
-        image={project.image}
+        image={project?.image?.secure_url || defualtImage}
         alt={project.name}
         sx={{
           objectFit: "cover",
           borderRadius: "8px",
           width: "100%",
-          height: "50%",
+          height: "180px",
         }}
       />
+
       <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
         <Box
           sx={{
@@ -34,7 +37,7 @@ export default function ProjectCard({ project }) {
             justifyContent: "space-between",
             alignItems: "center",
             mb: 2,
-            direction:"rtl"
+            direction: "rtl",
           }}
         >
           <Typography
@@ -47,17 +50,7 @@ export default function ProjectCard({ project }) {
           >
             {project.branchName}
           </Typography>
-<<<<<<< Updated upstream
-          <AvatarGroup
-            max={3}
-            sx={{ "& .MuiAvatar-root": { width: 32, height: 32 } }}
-          >
-            {project.members.map((member) => (
-              <Avatar key={member.id} src={member.avatar} />
-            ))}
-          </AvatarGroup>
-=======
->>>>>>> Stashed changes
+
         </Box>
 
         <Box sx={{ mb: 2, mt: 2 }}>
@@ -94,7 +87,6 @@ export default function ProjectCard({ project }) {
             <LocationOnIcon
               sx={{ fontSize: { xs: 16, sm: 20 }, color: "#052F72" }}
             />
-           
           </Box>
         </Box>
       </CardContent>

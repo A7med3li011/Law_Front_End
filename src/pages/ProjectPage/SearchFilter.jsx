@@ -331,7 +331,7 @@ export default function ProjectsHeader() {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [image, setImage] = useState(null);
-  const [description, setDescription] = useState("");
+  // const [description, setDescription] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -339,7 +339,7 @@ export default function ProjectsHeader() {
   const handleClose = () => setOpen(false);
   const queryClient = useQueryClient();
   const token = useSelector((state) => state.user.token);
-  const { mutate, isPending, isSuccess, isError, error } = useMutation({
+  const { mutate, isLoading, isSuccess, isError, error } = useMutation({
     mutationFn: (branchData) => addBranch(branchData, token),
     onSuccess: () => {
       queryClient.invalidateQueries(["branches"]);
@@ -348,14 +348,14 @@ export default function ProjectsHeader() {
       setLocation("");
       setSelectedMunicipality("");
       setImage(null);
-      setDescription("");
+      // setDescription("");
     },
   });
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Validate required fields
-    if (!name || !location || !description || !image) {
+    if (!name || !location || !image) {
       toast.warn("يرجى ملء جميع الحقول المطلوبة قبل الحفظ.");
       return;
     }
@@ -364,14 +364,14 @@ export default function ProjectsHeader() {
       name,
       location,
       image,
-      description,
+      // description,
     };
 
     mutate(branchData);
   };
 
   {
-    isPending && <p>Saving branch...</p>;
+    isLoading && <p>Saving branch...</p>;
   }
   {
     isError && <p className="text-red-500">Error: {error.message}</p>;
@@ -517,7 +517,7 @@ export default function ProjectsHeader() {
             </Box> */}
 
             {/* وصف المشروع */}
-            <TextField
+            {/* <TextField
               label="وصف المشروع"
               variant="outlined"
               fullWidth
@@ -526,7 +526,7 @@ export default function ProjectsHeader() {
               size="small"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-            />
+            /> */}
             <Box
               sx={{
                 direction: "rtl",
@@ -590,8 +590,9 @@ export default function ProjectsHeader() {
                     backgroundColor: "#04215A",
                   },
                 }}
+                disabled={isLoading}
               >
-                حفظ
+                {isLoading ? "جاري الحفظ" : " حفظ"}
               </Button>
             </Box>
           </Box>

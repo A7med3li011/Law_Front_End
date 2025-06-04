@@ -98,9 +98,11 @@ export default function LandingNavbar() {
 
         <div className="flex items-center space-x-4">
           <button
+
             onClick={() => {
               navigate("/home");
             }}
+
             className="hidden md:block bg-blue-800 hover:bg-blue-900 text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 shadow"
           >
             تسجيل
@@ -131,12 +133,14 @@ export default function LandingNavbar() {
               <MobileNavLink to="faq">الاسئلة الشائعة</MobileNavLink>
             </li>
             <li className="mt-4">
+
               <button
                 onClick={() => {
                   navigate("/home");
                 }}
                 className="w-full bg-blue-800 hover:bg-blue-900 text-white font-medium py-2 rounded-lg transition-all duration-300"
               >
+
                 تسجيل
               </button>
             </li>

@@ -11,17 +11,27 @@ export default function NewQuestionnaire() {
   const location = useLocation();
   const user = useSelector((store) => store.user);
   const { asnwers, setAnswers } = useContext(StoringContext);
-  const { categories } = location.state || [];
+  const { categories, selectedBranch } = location.state || {};
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
+const handleSubmit = () => {
+  // لا نتحقق من وجود فرع قبل الإرسال
+  const updatedAnswers = asnwers.map(answer => ({
+    ...answer,
+    assignTo: selectedBranch || user.user._id || null
+  }));
+
+  mutate(updatedAnswers);
+};
+
   const { mutate } = useMutation({
     mutationKey: ["sendAnswers"],
-    mutationFn: () => sendAnswers(user.token, asnwers),
+    mutationFn: (answersToSend) => sendAnswers(user.token, answersToSend),
     onSuccess: () => {
-      queryClient.invalidateQueries(["surveys"]); 
+      queryClient.invalidateQueries(["surveys"]);
       navigate("/questionnaire");
-      toast.success("  تم إرسال الاجابات بنجاح");
+      toast.success("تم إرسال الاجابات بنجاح");
       setAnswers([]);
     },
     onError: () => {
@@ -46,18 +56,26 @@ export default function NewQuestionnaire() {
     totalQuestions > 0
       ? Math.round((answeredQuestions / totalQuestions) * 100)
       : 0;
-  if (isLoading) return <p>lllllllll</p>;
+  
+  if (isLoading) return <p>جاري التحميل...</p>;
 
   return (
     <div className="text-black">
       <div className="flex items-center justify-between flex-row-reverse">
         <h3 className="text-lg font-semibold">استبيان مخالفات</h3>
-        <button
-          onClick={mutate}
-          className="py-2 px-5 text-white bg-primary rounded-lg"
-        >
-          تسجيل
-        </button>
+        <div className="flex items-center gap-2">
+          {selectedBranch && (
+            <div className="bg-gray-200 px-3 py-1 rounded">
+              الفرع: {selectedBranch.name}
+            </div>
+          )}
+          <button
+            onClick={handleSubmit}
+            className="py-2 px-5 text-white bg-primary rounded-lg"
+          >
+            تسجيل
+          </button>
+        </div>
       </div>
       <div className="w-4/5 mt-6 mx-auto">
         <div className="flex justify-between items-center mb-2">

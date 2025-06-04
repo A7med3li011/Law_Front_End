@@ -64,10 +64,12 @@ export async function getVaiolations(token, categories) {
   return res.data;
 }
 export async function sendAnswers(token, payload) {
+  // console.log("payload", payload);
+  // return;
   const res = await axios.post(`${baseUrl}/response/sendAnswers`, payload, {
     headers: { token },
   });
-
+   
   return res.data;
 }
 export async function getAnswers(token) {
@@ -94,10 +96,13 @@ export async function surveysById(token, id) {
   return res.data;
 }
 export async function UpdatesurveysById(token, data) {
+ 
   const payload = data?.map((ele) => ({
     responseId: ele.responseId,
+    assignTo: ele.assignTo,
     answer: ele.answer,
     status: ele.status,
+    createdBy: ele.createdBy,
   }));
   const res = await axios.put(`${baseUrl}/response/update/`, payload, {
     headers: { token },
@@ -120,7 +125,7 @@ export const addBranch = async (branchData, token) => {
   formData.append("name", branchData.name);
   formData.append("location", branchData.location);
   formData.append("image", branchData.image);
-  formData.append("description", branchData.description);
+  // formData.append("description", branchData.description);
   const response = await axios.post(`${baseUrl}/branch`, formData, {
     headers: {
       token,

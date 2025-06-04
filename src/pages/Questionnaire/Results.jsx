@@ -23,7 +23,7 @@ export default function Results() {
     mutationKey: ["update_survey"],
     mutationFn: () => UpdatesurveysById(user.token, updatedAsnwers),
     onSuccess: () => {
-      navigate("/questionnaire?index=1");
+      navigate("/questionnaire");
       toast.success("تم تعديل الإجابات بنجاح");
       setupdatedAsnwers([]);
     },

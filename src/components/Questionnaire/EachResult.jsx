@@ -26,6 +26,7 @@ export default function EachResult({ data, onAnswerChange }) {
     changed: false,
     responseId: data?._id || "",
     createdBy: user?._id || "",
+    assignTo: data?.assignTo || user?._id,
     answer: {
       value: "",
       numberOfWorkers: "",
@@ -60,6 +61,7 @@ export default function EachResult({ data, onAnswerChange }) {
       setNewAnswer({
         changed: false, // Reset changed flag when initializing
         responseId: data._id || "",
+        assignTo: data?.assignTo || user?._id,
         createdBy: user?._id || "",
         answer: {
           value: data?.answer?.value || "",
@@ -69,6 +71,7 @@ export default function EachResult({ data, onAnswerChange }) {
       });
     }
   }, [data, user]);
+  console.log(newAnswer, "newAcvvv");
 
   // Handle radio button changes
   function handleRadioChange(value) {
@@ -86,15 +89,23 @@ export default function EachResult({ data, onAnswerChange }) {
       },
       status:
         value === "نعم" ? "active" : value === "لا" ? "achieved" : "settled",
+      assignTo: newAnswer.assignTo || user._id,
+      createdBy: user?._id || "",
     };
 
-    setNewAnswer(updatedAnswer);
+    setNewAnswer({
+      ...updatedAnswer,
+      assignTo: data.assignTo || user._id,
+      createdBy: user?._id || "",
+    });
 
     // Call parent callback if provided
     if (onAnswerChange) {
       onAnswerChange(updatedAnswer);
     }
   }
+
+  console.log(updatedAsnwers, "updatedAnser");
 
   function handleWorkerChange(value) {
     const updatedAnswer = {
@@ -177,21 +188,21 @@ export default function EachResult({ data, onAnswerChange }) {
       {/* Conditional fields */}
       {data.questionId.needNumberOFRepetition &&
         newAnswer.answer.value === "نعم" && (
-         <div>
-          <span>عدد مرات تكرار المخالفة</span>
-           <AutoComplete
-            getOptionLabel={(option) => option}
-            size="small"
-            parentDeco="w-1/3 !mt-5 py-0"
-            deco="py-0"
-            label="اختر عدد مرات تكرار المخالفة"
-            options={repetions}
-            value={newAnswer.answer.numberOfRepetion}
-            onchange={(event, newValue) => {
-              handleRepeChange(newValue);
-            }}
-          />
-         </div>
+          <div>
+            <span>عدد مرات تكرار المخالفة</span>
+            <AutoComplete
+              getOptionLabel={(option) => option}
+              size="small"
+              parentDeco="w-1/3 !mt-5 py-0"
+              deco="py-0"
+              label="اختر عدد مرات تكرار المخالفة"
+              options={repetions}
+              value={newAnswer.answer.numberOfRepetion}
+              onchange={(event, newValue) => {
+                handleRepeChange(newValue);
+              }}
+            />
+          </div>
         )}
 
       {data.questionId.needNumberOFWorkers &&

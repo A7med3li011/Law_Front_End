@@ -20,7 +20,7 @@ export default function ProjectCard({ project }) {
       <CardMedia
         component="img"
         height="150"
-        image={project.image}
+        image={project.image.secure_url}
         alt={project.name}
         sx={{
           objectFit: "cover",
@@ -49,14 +49,14 @@ export default function ProjectCard({ project }) {
           >
             {project.name}
           </Typography>
-          <AvatarGroup
+          {/* <AvatarGroup
             max={3}
             sx={{ "& .MuiAvatar-root": { width: 32, height: 32 } }}
           >
             {project.members.map((member) => (
               <Avatar key={member.id} src={member.avatar} />
             ))}
-          </AvatarGroup>
+          </AvatarGroup> */}
         </Box>
         {/* icons */}
         {/* <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end" }}>

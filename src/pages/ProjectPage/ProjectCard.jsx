@@ -20,7 +20,7 @@ export default function ProjectCard({ project }) {
       <CardMedia
         component="img"
         height="150"
-        image={project.image.secure_url}
+        image={project?.image?.secure_url}
         alt={project.name}
         sx={{
           objectFit: "cover",

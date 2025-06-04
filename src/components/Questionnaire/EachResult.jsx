@@ -71,7 +71,7 @@ export default function EachResult({ data, onAnswerChange }) {
       });
     }
   }, [data, user]);
-  console.log(newAnswer, "newAcvvv");
+
 
   // Handle radio button changes
   function handleRadioChange(value) {
@@ -105,7 +105,6 @@ export default function EachResult({ data, onAnswerChange }) {
     }
   }
 
-  console.log(updatedAsnwers, "updatedAnser");
 
   function handleWorkerChange(value) {
     const updatedAnswer = {

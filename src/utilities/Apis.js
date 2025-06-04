@@ -120,7 +120,7 @@ export const addBranch = async (branchData, token) => {
   formData.append("name", branchData.name);
   formData.append("location", branchData.location);
   formData.append("image", branchData.image);
-  formData.append("description", branchData.description);
+  // formData.append("description", branchData.description);
   const response = await axios.post(`${baseUrl}/branch`, formData, {
     headers: {
       token,

@@ -15,7 +15,7 @@ export async function updateUserbyId(reqData, token) {
   formData.append("phone", reqData.phone);
   // formData.append("birthDate", reqData.birthDate);
   const res = await axios
-    .put(`${baseUrl}/user`, formData, {
+    .put(`/api/user`, formData, {
       headers: { token },
     })
     // .then((res) => toast.success("user Image updated successfully"))
@@ -37,7 +37,7 @@ export async function createSupport(reqData, token) {
   formData.append("phone", reqData.phone);
   formData.append("senderEmail", reqData.senderEmail);
   const res = await axios
-    .post(`${baseUrl}/support`, formData, {
+    .post(`/api/support`, formData, {
       headers: { token },
     })
     .catch((err) => toast.error(err.response.data.message));
@@ -45,7 +45,7 @@ export async function createSupport(reqData, token) {
 }
 export async function getCategories(token) {
   const res = await axios
-    .get(`${baseUrl}/category`, {
+    .get(`/api/category`, {
       headers: { token },
     })
     .catch((err) => toast.error(err.response.data.message));
@@ -54,7 +54,7 @@ export async function getCategories(token) {
 export async function getVaiolations(token, categories) {
   const res = await axios
     .post(
-      `${baseUrl}/vaiolation/vaiolationList`,
+      `/api/vaiolation/vaiolationList`,
       { categories: categories },
       {
         headers: { token },
@@ -66,14 +66,14 @@ export async function getVaiolations(token, categories) {
 export async function sendAnswers(token, payload) {
   // console.log("payload", payload);
   // return;
-  const res = await axios.post(`${baseUrl}/response/sendAnswers`, payload, {
+  const res = await axios.post(`/api/response/sendAnswers`, payload, {
     headers: { token },
   });
-   
+
   return res.data;
 }
 export async function getAnswers(token) {
-  const res = await axios.get(`${baseUrl}/response/getAnswers`, {
+  const res = await axios.get(`/api/response/getAnswers`, {
     headers: { token },
   });
 
@@ -81,7 +81,7 @@ export async function getAnswers(token) {
 }
 export async function surveys(token) {
   const res = await axios
-    .get(`${baseUrl}/response/surveys`, {
+    .get(`/api/response/surveys`, {
       headers: { token },
     })
     .catch((err) => toast.error(err.response.data.message));
@@ -89,14 +89,13 @@ export async function surveys(token) {
 }
 export async function surveysById(token, id) {
   const res = await axios
-    .get(`${baseUrl}/response/surveys/${id}`, {
+    .get(`/api/response/surveys/${id}`, {
       headers: { token },
     })
     .catch((err) => toast.error(err.response.data.message));
   return res.data;
 }
 export async function UpdatesurveysById(token, data) {
- 
   const payload = data?.map((ele) => ({
     responseId: ele.responseId,
     assignTo: ele.assignTo,
@@ -104,7 +103,7 @@ export async function UpdatesurveysById(token, data) {
     status: ele.status,
     createdBy: ele.createdBy,
   }));
-  const res = await axios.put(`${baseUrl}/response/update/`, payload, {
+  const res = await axios.put(`/api/response/update/`, payload, {
     headers: { token },
   });
 
@@ -112,7 +111,7 @@ export async function UpdatesurveysById(token, data) {
 }
 
 export const getBranches = async (token) => {
-  const response = await axios.get(`${baseUrl}/branch`, {
+  const response = await axios.get(`/api/branch`, {
     headers: {
       token,
     },
@@ -126,7 +125,7 @@ export const addBranch = async (branchData, token) => {
   formData.append("location", branchData.location);
   formData.append("image", branchData.image);
   // formData.append("description", branchData.description);
-  const response = await axios.post(`${baseUrl}/branch`, formData, {
+  const response = await axios.post(`/api/branch`, formData, {
     headers: {
       token,
       "Content-Type": "multipart/form-data",
@@ -136,7 +135,7 @@ export const addBranch = async (branchData, token) => {
 };
 
 export async function getBranchDetails(token, id) {
-  const res = await axios.get(`${baseUrl}/response/getAnswers/${id}`, {
+  const res = await axios.get(`/api/response/getAnswers/${id}`, {
     headers: { token },
   });
 

@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../redux/UserSlice";
 import { useQuery } from "react-query";
+import Loader from "../components/Loader/Loader.jsx";
 
 export default function ProtectedRoutes({ children }) {
   const isLoggedIn = !!localStorage.getItem("userID"); // or "isLoggedIn"
@@ -31,6 +32,6 @@ export default function ProtectedRoutes({ children }) {
   });
 
   if (!isLoggedIn) return <Navigate to="/login" replace />;
-  if (isLoading) return "pppp";
+  if (isLoading) return <Loader/>;
   return children;
 }

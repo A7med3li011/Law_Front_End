@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import { getBranches } from "../../utilities/Apis";
+import Loader from "../../components/Loader/Loader.jsx";
 
 export default function FilterSearchPage() {
   const token = useSelector((state) => state.user.token);
@@ -24,8 +25,7 @@ export default function FilterSearchPage() {
   const handleProjectClick = (projectId) => {
     navigate(`project/${projectId}`);
   };
-
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loader />;
   if (error) return <p>Error fetching branches</p>;
 
   return (
@@ -37,12 +37,29 @@ export default function FilterSearchPage() {
         width: "100%",
         boxSizing: "border-box",
         fontFamily: "Tajawal, sans-serif",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-end",
       }}
     >
       <SearchFilter />
+      <div className="flex items-center gap-x-4 border-primary max-w-48 border-[1px] rounded-xl  text-black">
+        <input
+          type="text"
+          className="bg-transparent px-3 py-1  focus:outline-none w-full"
+          placeholder="اكتب اسم الفرع"
+        />
+      </div>
       <Grid container spacing={{ xs: 2, sm: 3 }}>
         {projects?.map((project) => (
-          <Grid item xs={12} sm={6} md={4} key={project.id}>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            key={project.id}
+            sx={{ alignContent: "flex-start" }}
+          >
             <Box
               onClick={() => handleProjectClick(project._id)}
               sx={{

@@ -6,13 +6,16 @@ import { useQuery } from "react-query";
 import { getAnswers } from "../../utilities/Apis";
 import { useSelector } from "react-redux";
 import Card from "./Card";
+import Loader from "../../components/Loader/Loader.jsx";
 //----------------------------------------------
 export default function Home() {
   const user = useSelector((store) => store.user);
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["get_answers"],
     queryFn: () => getAnswers(user.token),
   });
+  if (isLoading) return <Loader />;
+console.log(isLoading);
 
   return (
     <>

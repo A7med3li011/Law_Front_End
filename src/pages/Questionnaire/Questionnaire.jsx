@@ -34,6 +34,7 @@ export default function Questionnaire() {
       {/* Header */}
       <div className="flex items-center justify-between flex-row-reverse mb-8">
         <h1 className="text-2xl font-bold text-primary">الاستبيانات</h1>
+
         <button
           onClick={openPopup}
           className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg shadow-md transition"
@@ -42,7 +43,16 @@ export default function Questionnaire() {
           <FontAwesomeIcon icon={faPlus} className="text-sm" />
         </button>
       </div>
-
+      <div
+        dir="rtl"
+        className="flex items-center self-end gap-x-4 border-primary max-w-48 border-[1px] px-3 py-1 rounded-xl  text-black"
+      >
+        <input
+          type="text"
+          className="bg-transparent px-3  focus:outline-none"
+          placeholder="اكتب اسم الاستبيان"
+        />
+      </div>
       {/* Content */}
       <div className="flex-grow flex flex-col items-center justify-start">
         <div className="w-full max-w-6xl">

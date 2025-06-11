@@ -20,35 +20,36 @@ export default function AutoComplete({
   size = "medium",
 }) {
   return (
-    <FormControl className={`!my-2 ${parentDeco ? parentDeco : ""} `}>
+    <FormControl className={`!my-2 w-full ${parentDeco ? parentDeco : ""}`}>
       <Autocomplete
-        className={deco}
+        className={`w-full ${deco}`}
         size={size}
-        options={options} // List of municipalities
-        // getOptionLabel={(option) => option}  Display option as string
+        options={options}
         getOptionLabel={getOptionLabel}
-        value={value} // Formik value
-        // onChange={(event, newValue) =>
-        //   registerFormik.setFieldValue("location", newValue)
-        // }
+        value={value}
         onChange={onchange}
         onBlur={onBlur}
         renderInput={(params) => (
           <TextField
             placeholder={placeholder ? placeholder : null}
-            className=" "
+            className="w-full"
             {...params}
             label={label}
             variant="outlined"
             sx={{
               "& .MuiOutlinedInput-root": {
-                borderRadius: inputStyle ? inputStyle : "", // rounded-xl
+                height: "48px",
+                borderRadius: inputStyle ? inputStyle : "",
+              },
+              "& .MuiOutlinedInput-input": {
+                paddingY: 1.5, // reduce input text vertical padding
+                paddingX: 3,
               },
             }}
           />
         )}
       />
-      <FormHelperText className=" !text-red-500 !pe-1 !text-right">
+      <FormHelperText className="!text-red-500 !pe-1 !text-right">
         {helper}
       </FormHelperText>
     </FormControl>

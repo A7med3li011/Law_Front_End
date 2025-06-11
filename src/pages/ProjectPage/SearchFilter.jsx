@@ -381,7 +381,7 @@ export default function ProjectsHeader() {
   }
 
   return (
-    <Box sx={{ width: "100%", mb: 4 }}>
+    <Box sx={{ width: "100%" }}>
       {/* الخط العلوي */}
       <Box
         sx={{

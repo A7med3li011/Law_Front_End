@@ -364,62 +364,65 @@ export default function SettingFrom({ currentImage, setCurrentImage }) {
 
   return (
     <div>
-      <form className="flex flex-wrap gap-y-3  flex-row-reverse justify-center gap-x-5 w-full py-5  ">
-        <Input
-          divDeco={"w-fit  "}
-          deco={"md:w-[500px]  "}
-          name={"name"}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          label={"الاسم"}
-        />
-        <Input
-          divDeco={"w-fit  "}
-          deco={"md:w-[500px] "}
-          name={"email"}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          label={"البريد الالكتروني"}
-        />
-        <div>
+      <form className="flex flex-wrap gap-y-3 flex-row-reverse justify-center gap-x-5 w-full py-5">
+   <div className="flex flex-wrap gap-3">
+         <div className="w-full md:w-[500px]">
           <Input
-            divDeco={"w-fit  "}
-            deco={"md:w-[500px] "}
-            name={"phone"}
+            divDeco="w-full"
+            deco="w-full h-12" // 48px height
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            label="الاسم"
+          />
+        </div>
+
+        <div className="w-full md:w-[500px]">
+          <Input
+            divDeco="w-full"
+            deco="w-full h-12"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            label="البريد الالكتروني"
+          />
+        </div>
+   </div>
+
+      <div className="flex flex-wrap items-center gap-3">
+          <div className="w-full md:w-[500px]">
+          <Input
+            divDeco="w-full"
+            deco="w-full h-12"
+            name="phone"
             value={phone}
             onChange={(e) => {
               if (!isNaN(+e.target.value)) {
                 setPhone(e.target.value);
               }
             }}
-            label={"رقم المحمول"}
+            label="رقم المحمول"
           />
         </div>
-
-        <CustomDatepicker
-          devDeco={"w-fit"}
-          deco={
-            "border-[1px] border-light w-[248px] md:w-[500px] focus:outline-none focus:border-blue-700 focus:border-2   border-black w-full px-4 py-[10px] rounded-md"
-          }
-          date={date}
-          onChange={(e) => setDate(e.toISOString().split("T")[0])}
-        />
-        <div className="flex items-center flex-row-reverse gap-x-5 gap-y-3 flex-wrap  justify-center">
+        <div className="w-full md:w-[500px]">
           <AutoComplete
-            deco={" w-[245px] sm:w-[500px] "}
+            deco="w-full"
             options={municipalities}
             value={location}
             onchange={(event, newValue) => setLocation(newValue)}
-            label={"العنوان"}
+            label="العنوان"
           />
-          <p className="bg-[#AEB9E1] text-white sm:w-[500px] flex items-center  justify-between ">
+        </div>
+      </div>
+        <div className="w-full flex flex-col items-center gap-y-3">
+          <div className="w-full md:w-[500px] bg-[#AEB9E1] text-white flex items-center justify-between">
             <span className="px-3">
               . نحن نحافظ على خصوصية بياناتك ولا نشاركها أبدًا مع أطراف ثالثة
             </span>
             <span className="bg-[#97a6de] py-2 px-3">
               <FontAwesomeIcon icon="fa-solid fa-lock" />
             </span>
-          </p>
+          </div>
         </div>
       </form>
       <div className="flex items-center gap-x-2">

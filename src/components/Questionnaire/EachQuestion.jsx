@@ -24,17 +24,21 @@ export default function EachQuestion({
   needWorkers,
   needRepeations,
 }) {
+
+
   const user = useSelector((store) => store.user.user);
-  // console.log(user._id);
+  
   const { asnwers, setAnswers } = useContext(StoringContext);
+ 
   const [answer, setAnswer] = useState({
     questionId: data?._id || "",
     createdBy: user._id,
     assignTo: user.branchId || user._id,
     answer: { value: "", numberOfWorkers: "", numberOfRepetion: "" },
   });
+  const [validationError, setValidationError] = useState("");
 
-  // تحديث الإجابات عند التغيير
+  
   useEffect(() => {
     if (answer.answer.value) {
       const existAnswer = asnwers.find(
@@ -51,9 +55,22 @@ export default function EachQuestion({
         setAnswers((prev) => [...prev, answer]);
       }
     }
-
-    console.log(answer, "cccccccc");
   }, [answer]);
+
+  const validateAnswer = () => {
+    if (answer.answer.value === "نعم") {
+      if (needWorkers && !answer.answer.numberOfWorkers) {
+        setValidationError("يجب اختيار عدد العمال");
+        return false;
+      }
+      if (needRepeations && !answer.answer.numberOfRepetion) {
+        setValidationError("يجب اختيار عدد مرات التكرار");
+        return false;
+      }
+    }
+    setValidationError("");
+    return true;
+  };
 
   const handleRadioChange = (value) => {
     setAnswer((prev) => ({
@@ -61,10 +78,13 @@ export default function EachQuestion({
       answer: {
         ...prev.answer,
         value: value,
+        numberOfWorkers: value === "نعم" ? prev.answer.numberOfWorkers : "",
+        numberOfRepetion: value === "نعم" ? prev.answer.numberOfRepetion : "",
       },
       status:
         value === "نعم" ? "active" : value === "لا" ? "achieved" : "settled",
     }));
+    validateAnswer();
   };
 
   const handleWorkerChange = (value) => {
@@ -75,6 +95,7 @@ export default function EachQuestion({
         numberOfWorkers: value,
       },
     }));
+    validateAnswer();
   };
 
   const handleRepeChange = (value) => {
@@ -85,70 +106,82 @@ export default function EachQuestion({
         numberOfRepetion: value,
       },
     }));
+    validateAnswer();
   };
 
   return (
-    <div
-      className={`w-full text-center flex flex-row-reverse items-center flex-wrap px-3 ${
-        lenghtArray - 1 == ind ? "" : "border-b-primary border-b-[1px]"
-      } p-2`}
-    >
-      <p className="w-6/12 text-xs text-end">{data?.questionText}</p>
+<div
+  className={`w-full text-center flex flex-row-reverse items-center flex-wrap px-3 ${
+    lenghtArray - 1 == ind ? "" : "border-b-primary border-b-[1px]"
+  } p-2`}
+>
+  <p className="w-6/12 text-xs text-end">{data?.questionText}</p>
 
-      <input
-        checked={answer.answer.value === "نعم"}
-        onChange={(e) => handleRadioChange(e.target.value)}
-        className="w-2/12 block"
-        type="radio"
-        name={`answers_${data?._id || ind}`}
-        value="نعم"
-      />
-      <input
-        checked={answer.answer.value === "لا"}
-        onChange={(e) => handleRadioChange(e.target.value)}
-        className="w-2/12 block"
-        type="radio"
-        name={`answers_${data?._id || ind}`}
-        value="لا"
-      />
-      <input
-        checked={answer.answer.value === "لا ينطبق"}
-        onChange={(e) => handleRadioChange(e.target.value)}
-        className="w-2/12 block"
-        type="radio"
-        name={`answers_${data?._id || ind}`}
-        value="لا ينطبق"
-      />
+  <input
+    checked={answer.answer.value === "نعم"}
+    onChange={(e) => handleRadioChange(e.target.value)}
+    className="w-2/12 block"
+    type="radio"
+    name={`answers_${data?._id || ind}`}
+    value="نعم"
+  />
+  <input
+    checked={answer.answer.value === "لا"}
+    onChange={(e) => handleRadioChange(e.target.value)}
+    className="w-2/12 block"
+    type="radio"
+    name={`answers_${data?._id || ind}`}
+    value="لا"
+  />
+  <input
+    checked={answer.answer.value === "لا ينطبق"}
+    onChange={(e) => handleRadioChange(e.target.value)}
+    className="w-2/12 block"
+    type="radio"
+    name={`answers_${data?._id || ind}`}
+    value="لا ينطبق"
+  />
 
-      {needRepeations && answer.answer.value === "نعم" && (
-        <AutoComplete
-          getOptionLabel={(option) => option}
-          size="small"
-          parentDeco={"w-1/3 !mt-5 py-0"}
-          deco={"py-0"}
-          label={"اختر عدد مرات تكرار المخالفة"}
-          options={repetions}
-          value={answer.answer.numberOfRepetion}
-          onchange={(event, newValue) => {
-            handleRepeChange(newValue);
-          }}
-        />
-      )}
+  {/* وضع حقول الاختيار الإضافية هنا مباشرة بعد حقول الإدخال */}
+  <div className="w-full flex flex-col gap-2">
+    {needWorkers && answer.answer.value === "نعم" && (
+      <AutoComplete
+        getOptionLabel={(option) => option}
+        size="small"
+        parentDeco={"w-1/3 !mt-2 py-0"}
+        deco={"py-0"}
+        label={"اختر عدد العمال"}
+        options={workersClass}
+        value={answer.answer.numberOfWorkers}
+        onchange={(event, newValue) => {
+          handleWorkerChange(newValue);
+        }}
+        required
+      />
+    )}
 
-      {needWorkers && answer.answer.value === "نعم" && (
-        <AutoComplete
-          getOptionLabel={(option) => option}
-          size="small"
-          parentDeco={"w-1/3 !mt-5 py-0"}
-          deco={"py-0"}
-          label={"اختر عدد العمال"}
-          options={workersClass}
-          value={answer.answer.numberOfWorkers}
-          onchange={(event, newValue) => {
-            handleWorkerChange(newValue);
-          }}
-        />
-      )}
+    {needRepeations && answer.answer.value === "نعم" && (
+      <AutoComplete
+        getOptionLabel={(option) => option}
+        size="small"
+        parentDeco={"w-1/3 !mt-2 py-0"}
+        deco={"py-0"}
+        label={"اختر عدد مرات تكرار المخالفة"}
+        options={repetions}
+        value={answer.answer.numberOfRepetion}
+        onchange={(event, newValue) => {
+          handleRepeChange(newValue);
+        }}
+        required
+      />
+    )}
+  </div>
+
+  {validationError && (
+    <div className="w-full text-right pr-4">
+      <p className="text-red-500 text-sm">{validationError}</p>
     </div>
+  )}
+</div>
   );
 }

@@ -14,16 +14,50 @@ export default function NewQuestionnaire() {
   const { categories, selectedBranch } = location.state || {};
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const [validationErrors, setValidationErrors] = useState([]);
 
-const handleSubmit = () => {
-  // لا نتحقق من وجود فرع قبل الإرسال
-  const updatedAnswers = asnwers.map(answer => ({
-    ...answer,
-    assignTo: selectedBranch || user.user._id || null
-  }));
+  const validateForm = () => {
+    const errors = [];
+    
+    // Check if all questions are answered
+    const totalQuestions = data?.data?.reduce(
+      (count, category) => count + (category.violations?.length || 0),
+      0
+    ) || 0;
+    
+    if (asnwers.length < totalQuestions) {
+      errors.push("يجب الإجابة على جميع الأسئلة");
+    }
 
-  mutate(updatedAnswers);
-};
+    // Check additional fields for "نعم" answers
+    asnwers.forEach((answer) => {
+      if (answer.answer.value === "نعم") {
+        if (answer.answer.needWorkers && !answer.answer.numberOfWorkers) {
+          errors.push(`السؤال ${answer.questionId}: يلزم اختيار عدد العمال`);
+        }
+        if (answer.answer.needRepeations && !answer.answer.numberOfRepetion) {
+          errors.push(`السؤال ${answer.questionId}: يلزم اختيار عدد مرات التكرار`);
+        }
+      }
+    });
+
+    setValidationErrors(errors);
+    return errors.length === 0;
+  };
+
+  const handleSubmit = () => {
+    if (!validateForm()) {
+      toast.error("يوجد أخطاء في الإجابات، يرجى مراجعتها");
+      return;
+    }
+
+    const updatedAnswers = asnwers.map(answer => ({
+      ...answer,
+      assignTo: selectedBranch || user.user._id || null
+    }));
+
+    mutate(updatedAnswers);
+  };
 
   const { mutate } = useMutation({
     mutationKey: ["sendAnswers"],
@@ -77,6 +111,18 @@ const handleSubmit = () => {
           </button>
         </div>
       </div>
+
+      {validationErrors.length > 0 && (
+        <div className="mt-4 p-3 bg-red-100 text-red-700 rounded">
+          <h4 className="font-bold">أخطاء تحتاج تصحيح:</h4>
+          <ul className="list-disc pr-5">
+            {validationErrors.map((error, index) => (
+              <li key={index}>{error}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <div className="w-4/5 mt-6 mx-auto">
         <div className="flex justify-between items-center mb-2">
           <p className="text-black font-medium">

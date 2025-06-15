@@ -19,6 +19,11 @@ import NewQuestionnaire from "./pages/Questionnaire/NewQuestionnaire";
 import Results from "./pages/Questionnaire/Results";
 import Branchdetails from "./pages/ProjectPage/Branchdetails.jsx";
 import Landing from "./pages/Landing/Landing.jsx";
+import Chat from "./pages/Chat/Chat.jsx";
+import TeamWork from "./pages/TeamWork/TeamWork.jsx";
+import AddTeam from "./pages/TeamWork/AddTeam.jsx";
+import NotFound from "./pages/NotFound/NotFound.jsx";
+import EditEmployee from "./pages/TeamWork/EditEmployee.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -79,12 +84,10 @@ function App() {
       ),
     },
     {
-
       path: "/",
       element: <Landing />,
     },
     {
-
       path: "",
       element: (
         <ProtectedRoutes>
@@ -106,7 +109,28 @@ function App() {
           path: "/FilterSearchPage/project/:id",
           element: <Branchdetails />,
         },
+        {
+          path: "chat",
+          element: <Chat />,
+        },
+        {
+          path: "teamWork",
+          element: <TeamWork />,
+        },
+        {
+          path: "addEmployee",
+          element: <AddTeam />,
+        },
+        {
+          path: "editEmployee/:id",
+          element: <EditEmployee />,
+        },
       ],
+    },
+    ,
+    {
+      path: "/*",
+      element: <NotFound />,
     },
   ]);
 

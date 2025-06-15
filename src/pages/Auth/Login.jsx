@@ -63,7 +63,7 @@ export default function Login() {
     <div className="flex px-10 py-10 flex-col sm:flex-row  items-center h-[100vh] ">
       <div className=" w-full sm:w-2/3    h-ful py-10 ">
         <h2 className=" sm:w-2/3 w-full  px-3 text-xl font-semibold">
-          Create an account
+          Sign In
         </h2>
         <form
           onSubmit={loginformik.handleSubmit}

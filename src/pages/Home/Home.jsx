@@ -15,7 +15,7 @@ export default function Home() {
     queryFn: () => getAnswers(user.token),
   });
   if (isLoading) return <Loader />;
-console.log(isLoading);
+  console.log(isLoading);
 
   return (
     <>

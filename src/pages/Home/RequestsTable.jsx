@@ -115,7 +115,6 @@ import Row from "./Row";
 
 // Main Component
 const RequestsTable = ({ data }) => {
-  console.log(data);
   const today = new Date().toLocaleDateString("ar-EG", {
     year: "numeric",
     month: "long",
@@ -138,7 +137,8 @@ const RequestsTable = ({ data }) => {
         </thead>
         <tbody>
           {data?.map(
-            (ele, index) => ele?.answer?.value == "نعم" && <Row data={ele} />
+            (ele, index) =>
+              ele?.answer?.value == "نعم" && <Row key={index} data={ele} />
           )}
         </tbody>
       </table>

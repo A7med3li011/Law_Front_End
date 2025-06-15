@@ -69,7 +69,7 @@ export async function sendAnswers(token, payload) {
   const res = await axios.post(`${baseUrl}/response/sendAnswers`, payload, {
     headers: { token },
   });
-   
+
   return res.data;
 }
 export async function getAnswers(token) {
@@ -96,13 +96,14 @@ export async function surveysById(token, id) {
   return res.data;
 }
 export async function UpdatesurveysById(token, data) {
- 
+  console.log(data);
   const payload = data?.map((ele) => ({
     responseId: ele.responseId,
     assignTo: ele.assignTo,
     answer: ele.answer,
     status: ele.status,
     createdBy: ele.createdBy,
+    companyName: ele.companyName,
   }));
   const res = await axios.put(`${baseUrl}/response/update/`, payload, {
     headers: { token },
@@ -124,8 +125,11 @@ export const addBranch = async (branchData, token) => {
   const formData = new FormData();
   formData.append("name", branchData.name);
   formData.append("location", branchData.location);
-  formData.append("image", branchData.image);
-  // formData.append("description", branchData.description);
+
+  if (branchData.image) {
+    formData.append("image", branchData.image);
+  }
+
   const response = await axios.post(`${baseUrl}/branch`, formData, {
     headers: {
       token,
@@ -141,4 +145,13 @@ export async function getBranchDetails(token, id) {
   });
 
   return res.data;
+}
+
+// Get all employees
+export async function getEmployees(token) {
+  const res = await axios.get(`${baseUrl}/user/employee`, {
+    headers: { token },
+  });
+
+  return res.data.data;
 }

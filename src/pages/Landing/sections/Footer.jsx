@@ -2,8 +2,8 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#052F72] text-gray-200 dark:bg-gray-900 rounded-se-[100px] ">
-      <div className="w-full max-w-[1500px] mx-auto px-8 sm:px-6 lg:px-8 py-4 lg:py-6 text-right">
+    <footer className="bg-[#052F72] text-gray-200 dark:bg-gray-900 rounded-se-[100px]  ">
+      <div className="w-full max-w-[1500px] mx-auto px-12 sm:px-6 lg:px-8 py-6 lg:py-6 text-right">
         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
           logo
         </span>
@@ -37,7 +37,7 @@ export default function Footer() {
               </div>
             </div>
             <div>
-              <ul className="text-gray-200 dark:text-gray-400 font-medium flex md:flex-col flex-row justify-center gap-5 md:gap-3 ">
+              <ul className="text-gray-200 dark:text-gray-400 font-medium flex md:flex-col flex-row-reverse justify-center gap-6 md:gap-3 ">
                 <li className=" hover:scale-105">
                   <a href="">الصفحة الرئيسية</a>
                 </li>
@@ -54,8 +54,8 @@ export default function Footer() {
             </div>
           </div>
           <div className="mb-6 md:mb-0">
-            <p className="max-w-lg py-3">
-              منصة "ممتثل" هي الحل الأمثل لإدارة المشاريع بذكاء وفعالية. نساعدك
+            <p className="max-w-lg py-4">
+              منصة "مـاثـل" هي الحل الأمثل لإدارة المشاريع بذكاء وفعالية. نساعدك
               على تنظيم المهام، تعزيز التعاون بين أعضاء الفريق، وضمان الالتزام
               بالمعايير والتشريعات لتفادي الغرامات والمخالفات. انضم إلى الشركات
               التي تثق بنا لتبسيط إدارة مشاريعها وتحقيق نجاح مستدام.
@@ -64,7 +64,7 @@ export default function Footer() {
         </div>
         <div className="items-center text-center mt-5">
           <span className="text-sm text-gray-400 sm:text-center dark:text-gray-400">
-            .ممتثل ©2025 .جميع الحقوق محفوظة
+            .مـاثـل ©2025 .جميع الحقوق محفوظة
           </span>
         </div>
       </div>

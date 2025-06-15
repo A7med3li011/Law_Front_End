@@ -86,7 +86,7 @@ export default function SurveyCard({ survey }) {
             <span className="font-semibold mx-1">:</span>
             <span className="font-semibold">عدد الأسئلة</span>
           </span>
-          <span>{survey?.respones?.length} سؤالاً</span>
+          <span>{survey?.respones?.length} </span>
         </div>
 
         <div className="flex flex-row-reverse justify-between text-red-600">

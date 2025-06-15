@@ -5,12 +5,15 @@ import { toast } from "react-toastify";
 //-------------------
 export default function Questions() {
   const [hasMultipleBranches, setHasMultipleBranches] = useState(null);
-  const [branches, setBranches] = useState([{ 
-    name: "", 
-    code700: "", 
-    address: "", 
-    employees: "" 
-  }]);
+ 
+  const [branches, setBranches] = useState([
+    {
+      name: "",
+      code700: "",
+      address: "",
+      employees: "",
+    },
+  ]);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -24,12 +27,15 @@ export default function Questions() {
   };
 
   const addBranch = () => {
-    setBranches([...branches, { 
-      name: "", 
-      code700: "", 
-      address: "", 
-      employees: "" 
-    }]);
+    setBranches([
+      ...branches,
+      {
+        name: "",
+        code700: "",
+        address: "",
+        employees: "",
+      },
+    ]);
   };
 
   const handleBranchChange = (index, field, value) => {
@@ -49,31 +55,34 @@ export default function Questions() {
           الرجاء الإجابة على الأسئلة التالية للمتابعة
         </p>
 
-        <form onSubmit={handleSubmit} className="max-w-3xl mt-5 flex-wrap py-3 px-3">
+        <form
+          onSubmit={handleSubmit}
+          className="max-w-3xl mt-5 flex-wrap py-3 px-3"
+        >
           {/* Main Question */}
           <div className="mb-8">
             <label className="block text-lg font-medium mb-4 text-gray-700">
               هل الشركة مكونة من أكثر من فرع؟
             </label>
-            
+
             <div className="flex gap-4 justify-center">
               <button
                 type="button"
                 onClick={() => setHasMultipleBranches(true)}
                 className={`px-6 py-2 rounded-full ${
-                  hasMultipleBranches === true 
+                  hasMultipleBranches === true
                     ? "bg-primary text-white"
                     : "bg-gray-200 text-gray-700"
                 }`}
               >
                 نعم
               </button>
-              
+
               <button
                 type="button"
                 onClick={() => setHasMultipleBranches(false)}
                 className={`px-6 py-2 rounded-full ${
-                  hasMultipleBranches === false 
+                  hasMultipleBranches === false
                     ? "bg-primary text-white"
                     : "bg-gray-200 text-gray-700"
                 }`}
@@ -89,7 +98,7 @@ export default function Questions() {
               <h3 className="text-md font-semibold text-gray-700">
                 بيانات الفروع الإضافية
               </h3>
-              
+
               {branches.map((branch, index) => (
                 <div key={index} className="bg-gray-50 p-3 rounded-lg">
                   <div className="mb-3">
@@ -98,36 +107,42 @@ export default function Questions() {
                     </label>
                     <input
                       value={branch.name}
-                      onChange={(e) => handleBranchChange(index, 'name', e.target.value)}
+                      onChange={(e) =>
+                        handleBranchChange(index, "name", e.target.value)
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-md"
                       required
                     />
                   </div>
-                  
+
                   <div className="mb-3">
                     <label className="block text-sm font-medium mb-1 text-gray-600">
                       كود 700
                     </label>
                     <input
                       value={branch.code700}
-                      onChange={(e) => handleBranchChange(index, 'code700', e.target.value)}
+                      onChange={(e) =>
+                        handleBranchChange(index, "code700", e.target.value)
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-md"
                       required
                     />
                   </div>
-                  
+
                   <div className="mb-3">
                     <label className="block text-sm font-medium mb-1 text-gray-600">
                       عنوان الفرع
                     </label>
                     <input
                       value={branch.address}
-                      onChange={(e) => handleBranchChange(index, 'address', e.target.value)}
+                      onChange={(e) =>
+                        handleBranchChange(index, "address", e.target.value)
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-md"
                       required
                     />
                   </div>
-                  
+
                   <div className="mb-3">
                     <label className="block text-sm font-medium mb-1 text-gray-600">
                       عدد الموظفين
@@ -135,14 +150,16 @@ export default function Questions() {
                     <input
                       type="number"
                       value={branch.employees}
-                      onChange={(e) => handleBranchChange(index, 'employees', e.target.value)}
+                      onChange={(e) =>
+                        handleBranchChange(index, "employees", e.target.value)
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-md"
                       required
                     />
                   </div>
                 </div>
               ))}
-              
+
               <button
                 type="button"
                 onClick={addBranch}

@@ -1,6 +1,9 @@
 export default function Hero() {
   return (
-    <div className="relative min-h-screen bg-white flex items-center justify-center px-4 overflow-hidden" id="hero">
+    <div
+      className="relative min-h-screen bg-white flex items-center justify-center px-4 overflow-hidden"
+      id="hero"
+    >
       {/* Decorative SVG on the right */}
       <div className="absolute right-0 -top-6 md:-top-4 h-full z-0">
         <svg
@@ -29,7 +32,7 @@ export default function Hero() {
           <h1 className="ml-3 font-light text-[24px] md:text-[60px] text-[#052F72] leading-tight text-center text-semibold ">
             <span className="relative inline-block ml-2">
               <span className="relative z-10 font-bold text-[36px] md:text-[64px] text-[#052F72] leading-[1.2] ">
-                ممتثل:
+                مـاثـل:
               </span>
               <span className="absolute bottom-1 md:bottom-2 left-0 w-full md:h-4 h-2 bg-secondary z-0 rounded-sm animate-underline" />
             </span>
@@ -38,7 +41,7 @@ export default function Hero() {
         </div>
 
         <p className="mt-6  font-semibold text-[18px] md:text-[24px] leading-[146%] tracking-[2%] text-[#331B3BA8]">
-          ممتثل بين قوة إدارة المشاريع المتكاملة وأدوات متقدمة لمتابعة
+          مـاثـل بين قوة إدارة المشاريع المتكاملة وأدوات متقدمة لمتابعة
           المخالفات، مما يساعدك على الالتزام بالقوانين وتجنب التأخيرات المكلفة.
         </p>
       </div>

@@ -7,6 +7,7 @@ import EachResult from "../../components/Questionnaire/EachResult";
 import { StoringContext } from "../../context/StoringContext";
 import { useContext } from "react";
 import { toast } from "react-toastify";
+import Loader from "../../components/Loader/Loader";
 
 export default function Results() {
   const { id } = useParams();
@@ -27,10 +28,11 @@ export default function Results() {
       toast.success("تم تعديل الإجابات بنجاح");
       setupdatedAsnwers([]);
     },
-    onError: () => {
-      toast.error("  حدث خطأ اثناء تعديل البيانات ");
+    onError: (err) => {
+      toast.error(err.response.data.message);
     },
   });
+  if (isLoading) return <Loader />;
   return (
     <div className="text-black ">
       <div className="flex justify-between flex-row-reverse items-center py-2">

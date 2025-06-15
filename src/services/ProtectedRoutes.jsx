@@ -12,9 +12,14 @@ export default function ProtectedRoutes({ children }) {
   const dispatch = useDispatch();
   async function getUserData() {
     if (!isLoggedIn) return;
-    const data = await axios.get(
-      `${baseUrl}/user/${localStorage.getItem("userID")}`
-    );
+    const data = await axios
+      .get(`${baseUrl}/user/${localStorage.getItem("userID")}`)
+      .catch((err) => {
+        if (err.response.data.message == "user is not found") {
+          localStorage.clear();
+          Navigate("/login");
+        }
+      });
 
     return data;
   }
@@ -32,6 +37,6 @@ export default function ProtectedRoutes({ children }) {
   });
 
   if (!isLoggedIn) return <Navigate to="/login" replace />;
-  if (isLoading) return <Loader/>;
+  if (isLoading) return <Loader />;
   return children;
 }

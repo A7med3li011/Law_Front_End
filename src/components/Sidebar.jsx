@@ -3,7 +3,8 @@ import Avatar from "../ui/Avatar";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-
+import Diversity3Icon from "@mui/icons-material/Diversity3";
+import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 const links = [
   {
     name: "الصفحه الرئيسية",
@@ -21,15 +22,26 @@ const links = [
     to: "/FilterSearchPage",
   },
   // { name: "الفواتير", icon: <FontAwesomeIcon icon="fa-solid fa-sack-dollar" />, to: "/home" },
+
   {
-    name: "التواصل و الدعم",
-    icon: <FontAwesomeIcon icon="fa-solid fa-phone-volume" />,
-    to: "/support",
+    name: "فريق العمل",
+    icon: <Diversity3Icon />,
+    to: "/teamwork",
+  },
+  {
+    name: "دردشة",
+    icon: <ChatBubbleIcon />,
+    to: "/chat",
   },
   {
     name: "الاعدادات",
     icon: <FontAwesomeIcon icon="fa-solid fa-gear" />,
     to: "/setting",
+  },
+  {
+    name: "التواصل و الدعم",
+    icon: <FontAwesomeIcon icon="fa-solid fa-phone-volume" />,
+    to: "/support",
   },
 ];
 
@@ -67,7 +79,11 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <ul className={`text-right my-4 flex flex-col ${toggle ? " items-end" : " items-center"} `}>
+      <ul
+        className={`text-right my-4 flex flex-col ${
+          toggle ? " items-end" : " items-center"
+        } `}
+      >
         {links.map((ele, index) => {
           const isActive = location.pathname === ele.to;
           return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Grid } from "@mui/material";
 import SearchFilter from "./SearchFilter";
 import ProjectCard from "./ProjectCard";
@@ -11,7 +11,7 @@ import Loader from "../../components/Loader/Loader.jsx";
 export default function FilterSearchPage() {
   const token = useSelector((state) => state.user.token);
   const navigate = useNavigate();
-
+  const [searchTerm, setSearchTerm] = useState("");
   const {
     data: projects = [],
     isLoading,
@@ -25,6 +25,11 @@ export default function FilterSearchPage() {
   const handleProjectClick = (projectId) => {
     navigate(`project/${projectId}`);
   };
+  const filteredProjects = searchTerm
+    ? projects?.filter((project) =>
+        project?.branchName?.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : projects;
   if (isLoading) return <Loader />;
   if (error) return <p>Error fetching branches</p>;
 
@@ -43,21 +48,26 @@ export default function FilterSearchPage() {
       }}
     >
       <SearchFilter />
-      <div className="flex items-center gap-x-4 border-primary max-w-48 border-[1px] rounded-xl  text-black">
+      <div
+        dir="rtl"
+        className="flex items-center self-end gap-x-4 border-primary max-w-48 border-[1px] px-3 py-1 rounded-xl  text-black mb-2"
+      >
         <input
           type="text"
-          className="bg-transparent px-3 py-1  focus:outline-none w-full"
+          className="bg-transparent px-3  focus:outline-none"
           placeholder="اكتب اسم الفرع"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
       <Grid container spacing={{ xs: 2, sm: 3 }}>
-        {projects?.map((project) => (
+        {filteredProjects?.map((project, index) => (
           <Grid
             item
             xs={12}
             sm={6}
             md={4}
-            key={project.id}
+            key={index}
             sx={{ alignContent: "flex-start" }}
           >
             <Box

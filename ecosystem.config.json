@@ -1,0 +1,7 @@
+{
+  "apps": [{
+    "name": "AlMobtyFrontend",
+    "script": "serve",
+    "args": "-s build -p 3010"
+  }]
+}

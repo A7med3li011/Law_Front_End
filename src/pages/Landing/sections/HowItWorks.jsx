@@ -12,18 +12,18 @@ export default function HowItWorks() {
         {/* Text Content */}
         <div className="text-center lg:text-right max-w-xl">
           <h2 className="text-4xl font-extrabold text-primary  mb-6 flex flex-col items-start gap-3">
-            آلية ممتثل
+            آلية مـاثـل
             <div className="w-28 h-2 bg-secondary text-right "></div>
           </h2>
           <p className="text-gray-600 text-lg">
-            للحصول على حساب في ممتثل يمكنك مشاهدة الفيديو واتباع الخطوات
+            للحصول على حساب في مـاثـل يمكنك مشاهدة الفيديو واتباع الخطوات
             التالية:
           </p>
           <ul
             className="text-lg list-decimal list-inside mt-4 space-y-5 text-right text-primary font-semibold"
             dir="rtl"
           >
-            <li>التسجيل في ممتثل</li>
+            <li>التسجيل في مـاثـل</li>
             <li> أضف منشأة أو فرعًا أو مشروعًا</li>
             <li> اختر الجهات الحكومية</li>
             <li>قم بإجراء التقييم الذاتي للامتثال </li>

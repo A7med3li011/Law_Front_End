@@ -27,6 +27,7 @@ export default function EachResult({ data, onAnswerChange }) {
     responseId: data?._id || "",
     createdBy: user?._id || "",
     assignTo: data?.assignTo || user?._id,
+    companyName: user.companyName,
     answer: {
       value: "",
       numberOfWorkers: "",
@@ -63,6 +64,7 @@ export default function EachResult({ data, onAnswerChange }) {
         responseId: data._id || "",
         assignTo: data?.assignTo || user?._id,
         createdBy: user?._id || "",
+        companyName: user.companyName,
         answer: {
           value: data?.answer?.value || "",
           numberOfWorkers: data?.answer?.numberOfWorkers || "",
@@ -71,7 +73,6 @@ export default function EachResult({ data, onAnswerChange }) {
       });
     }
   }, [data, user]);
-
 
   // Handle radio button changes
   function handleRadioChange(value) {
@@ -91,12 +92,14 @@ export default function EachResult({ data, onAnswerChange }) {
         value === "نعم" ? "active" : value === "لا" ? "achieved" : "settled",
       assignTo: newAnswer.assignTo || user._id,
       createdBy: user?._id || "",
+      // companyName: user.companyName,
     };
 
     setNewAnswer({
       ...updatedAnswer,
       assignTo: data.assignTo || user._id,
       createdBy: user?._id || "",
+      // companyName: user.companyName,
     });
 
     // Call parent callback if provided
@@ -104,7 +107,6 @@ export default function EachResult({ data, onAnswerChange }) {
       onAnswerChange(updatedAnswer);
     }
   }
-
 
   function handleWorkerChange(value) {
     const updatedAnswer = {
@@ -155,6 +157,7 @@ export default function EachResult({ data, onAnswerChange }) {
 
       {/* Radio buttons */}
       <input
+        disabled={data.companyName != user.companyName}
         checked={newAnswer.answer.value === "نعم"}
         onChange={(e) => handleRadioChange(e.target.value)}
         className="w-2/12 block"
@@ -165,6 +168,7 @@ export default function EachResult({ data, onAnswerChange }) {
       />
 
       <input
+        disabled={data.companyName != user.companyName}
         checked={newAnswer.answer.value === "لا"}
         onChange={(e) => handleRadioChange(e.target.value)}
         className="w-2/12 block"
@@ -175,6 +179,7 @@ export default function EachResult({ data, onAnswerChange }) {
       />
 
       <input
+        disabled={data.companyName != user.companyName}
         checked={newAnswer.answer.value === "لا ينطبق"}
         onChange={(e) => handleRadioChange(e.target.value)}
         className="w-2/12 block"
@@ -190,6 +195,7 @@ export default function EachResult({ data, onAnswerChange }) {
           <div>
             <span>عدد مرات تكرار المخالفة</span>
             <AutoComplete
+              disabled={data.companyName != user.companyName}
               getOptionLabel={(option) => option}
               size="small"
               parentDeco="w-1/3 !mt-5 py-0"
@@ -207,6 +213,7 @@ export default function EachResult({ data, onAnswerChange }) {
       {data.questionId.needNumberOFWorkers &&
         newAnswer.answer.value === "نعم" && (
           <AutoComplete
+            disabled={data.companyName != user.companyName}
             getOptionLabel={(option) => option}
             size="small"
             parentDeco="w-1/3 !mt-5 py-0"

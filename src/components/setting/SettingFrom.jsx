@@ -10,6 +10,7 @@ import { updateUserbyId } from "../../utilities/Apis";
 import CustomButton from "../../ui/CustomButton";
 import { updateUser } from "../../redux/UserSlice";
 import { toast } from "react-toastify";
+import Loader from "../Loader/Loader.jsx";
 
 const municipalities = [
   //الاول
@@ -360,60 +361,60 @@ export default function SettingFrom({ currentImage, setCurrentImage }) {
     console.log(isError);
   }
 
-  if (isLoading) return "zzzzzzzzzz";
+  if (isLoading) return <Loader />;
 
   return (
     <div>
       <form className="flex flex-wrap gap-y-3 flex-row-reverse justify-center gap-x-5 w-full py-5">
-   <div className="flex flex-wrap gap-3">
-         <div className="w-full md:w-[500px]">
-          <Input
-            divDeco="w-full"
-            deco="w-full h-12" // 48px height
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            label="الاسم"
-          />
-        </div>
-
-        <div className="w-full md:w-[500px]">
-          <Input
-            divDeco="w-full"
-            deco="w-full h-12"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            label="البريد الالكتروني"
-          />
-        </div>
-   </div>
-
-      <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap gap-3">
           <div className="w-full md:w-[500px]">
-          <Input
-            divDeco="w-full"
-            deco="w-full h-12"
-            name="phone"
-            value={phone}
-            onChange={(e) => {
-              if (!isNaN(+e.target.value)) {
-                setPhone(e.target.value);
-              }
-            }}
-            label="رقم المحمول"
-          />
+            <Input
+              divDeco="w-full"
+              deco="w-full h-12" // 48px height
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              label="الاسم"
+            />
+          </div>
+
+          <div className="w-full md:w-[500px]">
+            <Input
+              divDeco="w-full"
+              deco="w-full h-12"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              label="البريد الالكتروني"
+            />
+          </div>
         </div>
-        <div className="w-full md:w-[500px]">
-          <AutoComplete
-            deco="w-full"
-            options={municipalities}
-            value={location}
-            onchange={(event, newValue) => setLocation(newValue)}
-            label="العنوان"
-          />
+
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="w-full md:w-[500px]">
+            <Input
+              divDeco="w-full"
+              deco="w-full h-12"
+              name="phone"
+              value={phone}
+              onChange={(e) => {
+                if (!isNaN(+e.target.value)) {
+                  setPhone(e.target.value);
+                }
+              }}
+              label="رقم المحمول"
+            />
+          </div>
+          <div className="w-full md:w-[500px]">
+            <AutoComplete
+              deco="w-full"
+              options={municipalities}
+              value={location}
+              onchange={(event, newValue) => setLocation(newValue)}
+              label="العنوان"
+            />
+          </div>
         </div>
-      </div>
         <div className="w-full flex flex-col items-center gap-y-3">
           <div className="w-full md:w-[500px] bg-[#AEB9E1] text-white flex items-center justify-between">
             <span className="px-3">
